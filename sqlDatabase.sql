@@ -18,16 +18,33 @@ create table ordenes(
 
 create table producto(
     id_producto SERIAL primary key,
-    tipo varchar(64) not null,
-    subtipo varchar(64),
-    tamano varchar(10) not null,
-    precio decimal not null    
+    tipo varchar(64) not null
+);
+
+create table subtipo(
+    id_subtipo SERIAL primary key,
+    nombre varchar(128) not null
+);
+
+create table tamano(
+    id_tamano SERIAL primary key,
+    nombre varchar(32) not null
+);
+
+create table producto_tamano_subtipo(
+    id_subtipo serial,
+    id_tamano serial,
+    id_producto serial not null,
+    precio decimal not null,
+    constraint fk_subtipo foreign key (id_subtipo) references subtipo(id_subtipo),
+    constraint fk_tamano foreign key (id_tamano) references tamano(id_tamano),
+    constraint fk_producto foreign key (id_producto) references producto(id_producto)
 );
 
 create table pizza(
-    id_producto serial primary key,
+    id_subtipo serial primary key,
     num_toppings integer not null,
-    constraint fk_producto foreign key (id_producto) references producto(id_producto)
+    constraint fk_producto foreign key (id_subtipo) references subtipo(id_subtipo)
 ); 
 
 create table toppings(
@@ -69,53 +86,70 @@ insert into toppings (nombre) values ('Spinach');
 insert into toppings (nombre) values ('pineapple');
 insert into toppings (nombre) values ('eggplant');
 
-insert into producto (tipo,subtipo) values ('Pasta','baked Ziti Mozarella');        --1
-insert into producto (tipo,subtipo) values ('Pasta','baked Ziti Meatballs');
-insert into producto (tipo,subtipo) values ('Pasta','baked Ziti Chicken');
+insert into producto (tipo) values ('Pasta');        --1
+insert into producto (tipo) values ('Salads');
+insert into producto (tipo) values ('Pizza');
+insert into producto (tipo) values ('Dinner Plates');
+insert into producto (tipo) values ('Drinks');
 
-insert into producto (tipo,subtipo) values ('Salads','Garden');
-insert into producto (tipo,subtipo) values ('Salads','Greek');                      --5
-insert into producto (tipo,subtipo) values ('Salads','Antipasto');
-insert into producto (tipo,subtipo) values ('Salads','Tuna');
+insert into subtipo (nombre) values ('Regular 0 toppings');
+insert into subtipo (nombre) values ('Sicilian 0 toppings');
+insert into subtipo (nombre) values ('Regular 1 toppings');
+insert into subtipo (nombre) values ('Sicilian 1 toppings');
+insert into subtipo (nombre) values ('Regular 2 toppings');
+insert into subtipo (nombre) values ('Sicilian 2 toppings');
+insert into subtipo (nombre) values ('Regular 3 toppings');
+insert into subtipo (nombre) values ('Sicilian 3 toppings');
 
-insert into producto (tipo,subtipo) values ('Dinner Plates','Garden');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Greek');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Antipasto');           --10
-insert into producto (tipo,subtipo) values ('Dinner Plates','Baked Ziti');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Ziti with metballs');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Ziti with Chicken');
+insert into subtipo (nombre) values ('Regular');
+insert into subtipo (nombre) values ('Cheese');
+insert into subtipo (nombre) values ('italian');
+insert into subtipo (nombre) values ('Ham + Cheese');
+insert into subtipo (nombre) values ('Meatball');
+insert into subtipo (nombre) values ('Tuna');
+insert into subtipo (nombre) values ('Turkey + Cheese');
+insert into subtipo (nombre) values ('Chicken Parmigiana');
+insert into subtipo (nombre) values ('Roast Beef');
+insert into subtipo (nombre) values ('Eggplant Parmigiana');
+insert into subtipo (nombre) values ('Steak');
+insert into subtipo (nombre) values ('Steak + Cheese');
+insert into subtipo (nombre) values ('Steak + Mushrooms');
 
-insert into producto (tipo,subtipo) values ('Dinner Plates','Garden');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Greek');               --15
-insert into producto (tipo,subtipo) values ('Dinner Plates','Antipasto');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Baked Ziti');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Ziti with metballs');
-insert into producto (tipo,subtipo) values ('Dinner Plates','Ziti with Chicken');
+insert into tamano (nombre) values ('small');
+insert into tamano (nombre) values ('large');
+insert into tamano (nombre) values ('pizza slice');
+insert into tamano (nombre) values ('drink can');
+insert into tamano (nombre) values ('drink tap');
+insert into tamano (nombre) values ('drink bottle');
 
-insert into producto (tipo,subtipo) values ('Drink', null);                         --20
+insert into pizza (num_toppings,id_subtipo) values (0,15);
+insert into pizza (num_toppings,id_subtipo) values (0,16);
+insert into pizza (num_toppings,id_subtipo) values (1,17);
+insert into pizza (num_toppings,id_subtipo) values (1,18);
+insert into pizza (num_toppings,id_subtipo) values (2,19);
+insert into pizza (num_toppings,id_subtipo) values (2,20);
+insert into pizza (num_toppings,id_subtipo) values (3,21);
+insert into pizza (num_toppings,id_subtipo) values (3,22);
 
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','small',8.35);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','small',9.50);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','small',10.50);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','small',11.70);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','small',14.75);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','large',13.75);                     --25
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','large',15.75);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','large',17.75);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','large',19.75);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','regular','large',20.95);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,15,1,8.35);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,17,1,9.50);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,19,1,10.50);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,21,1,11.70);
 
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian','small',);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian','small',);                    --30
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian','small',);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian','small',);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian','small',);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,15,2,13.75);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,17,2,15.75);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,19,2,17.75);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,21,2,19.75);
 
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian'.'large',);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian'.'large',);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian'.'large',);                    --35
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian'.'large',);
-insert into producto (tipo,subtipo,tamano,precio) values ('Pizza','sicilian'.'large',);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,16,1,16.75);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,18,1,18.75);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,20,1,19.75);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,22,1,20.75);
 
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,16,2,26.50);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,18,2,28.50);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,20,2,30.50);
+insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,22,2,31.50);
 
-
+-- querys
+select producto.tipo,tamano.nombre,subtipo.nombre,producto_tamano_subtipo.precio, pizza.num_toppings from producto_tamano_subtipo join tamano on producto_tamano_subtipo.id_tamano=tamano.id_tamano join producto on producto_tamano_subtipo.id_producto=producto.id_producto join subtipo on producto_tamano_subtipo.id_subtipo=subtipo.id_subtipo join pizza on producto_tamano_subtipo.id_subtipo=pizza.id_subtipo order by pizza.num_toppings asc; 
