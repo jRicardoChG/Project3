@@ -11,7 +11,7 @@ create table usuarios (
 create table ordenes(
     id_orden SERIAL primary key,
     id_usuario SERIAL not null,
-    fecha date not null,
+    fecha datetime not null,
     direccion varchar(64) not null,
     constraint fk_usuario foreign key (id_usuario) references usuarios(id_usuario)
 );
@@ -52,27 +52,25 @@ create table toppings(
     nombre varchar(64) not null
 );
 
-create table productoCreado(
-    id_productoCreado SERIAL primary key,
+create table prodorden(
+    id_productocreado SERIAL primary key,
     id_producto SERIAL not null,
-    constraint fk_creado foreign key (id_producto) references producto(id_producto)
+    id_tamano SERIAL,
+    id_orden serial not null,
+    id_subtipo SERIAL not null,
+    cantidad integer not null,
+    constraint fk_creado foreign key (id_producto) references producto(id_producto),
+    constraint fk_tamano foreign key (id_tamano) references tamano(id_tamano),
+    constraint fk_subtipo foreign key (id_subtipo) references subtipo(id_subtipo),
+    constraint fk_orden foreign key (id_orden) references ordenes(id_orden)
 );
 
-create table productoCreado_topping(
-    id_productoCreado SERIAL not null,
+create table prodorden_topping(
+    id_productocreado SERIAL not null,
     id_topping SERIAL not null,
-    constraint fk_productoCreado foreign key (id_productoCreado) references productoCreado(id_productoCreado),
+    constraint fk_productoCreado foreign key (id_productoCreado) references prodorden(id_productocreado),
     constraint fk_topping foreign key (id_topping) references toppings(id_topping) 
 );
-
-create table producto_orden(
-    id_productoCreado SERIAL not null,
-    id_orden SERIAL not null,
-    cantidad integer not null,
-    constraint fk_orden foreign key (id_orden) references ordenes(id_orden),
-    constraint fk_productoCreado foreign key (id_productoCreado) references productoCreado(id_productoCreado)
-);
-
 
 -- insertando datos para probar estado de la informacion
 
@@ -122,6 +120,10 @@ insert into tamano (nombre) values ('drink can');
 insert into tamano (nombre) values ('drink tap');
 insert into tamano (nombre) values ('drink bottle');
 
+insert into ordenes (id_usuario,fecha,direccion) values (1,now(),'muy lejos');
+insert into ordenes (id_usuario,fecha,direccion) values (2,now(),'muy lejos');
+insert into ordenes (id_usuario,fecha,direccion) values (1,now(),'muy lejos');
+
 insert into pizza (num_toppings,id_subtipo) values (0,15);
 insert into pizza (num_toppings,id_subtipo) values (0,16);
 insert into pizza (num_toppings,id_subtipo) values (1,17);
@@ -151,5 +153,18 @@ insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) va
 insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,20,2,30.50);
 insert into producto_tamano_subtipo (id_producto,id_subtipo,id_tamano,precio) values (3,22,2,31.50);
 
+insert into prodorden (id_orden,id_producto,id_subtipo,id_tamano,cantidad) values (1,3,17,1,1);
+insert into prodorden (id_orden,id_producto,id_subtipo,id_tamano,cantidad) values (1,3,19,2,2);
+
+insert into prodorden_topping (id_topping,id_productocreado) values (1,2);
+insert into prodorden_topping (id_topping,id_productocreado) values (2,2);
+insert into prodorden_topping (id_topping,id_productocreado) values (3,2);
+
+
 -- querys
 select producto.tipo,tamano.nombre,subtipo.nombre,producto_tamano_subtipo.precio, pizza.num_toppings from producto_tamano_subtipo join tamano on producto_tamano_subtipo.id_tamano=tamano.id_tamano join producto on producto_tamano_subtipo.id_producto=producto.id_producto join subtipo on producto_tamano_subtipo.id_subtipo=subtipo.id_subtipo join pizza on producto_tamano_subtipo.id_subtipo=pizza.id_subtipo order by pizza.num_toppings asc; 
+
+
+select producto.tipo,prodorden_topping.id_topping,prodorden.id_orden,prodorden.id_subtipo,prodorden.id_tamano from prodorden join producto on producto.id_producto=prodorden.id_producto join prodorden_topping on prodorden.id_productoCreado = prodorden_topping.id_productoCreado order by prodorden.id_tamano asc;
+
+
