@@ -62,8 +62,9 @@ class prod_orden(models.Model):
     id_prod_creado = models.AutoField(primary_key=True,auto_created=True,serialize=True)    
     cantidad = models.IntegerField(null=False)
     id_ordenIn = models.ForeignKey(ordenes,on_delete=models.CASCADE,related_name="id_ordenIn")
-    topping = models.ManyToManyField(toppings,blank=True,related_name="prod_topping")
     id_ptsWho = models.ForeignKey(prod_tam_sub,on_delete=models.CASCADE,related_name="id_ptsWho") 
+    topping = models.ManyToManyField(toppings,blank=True,related_name="prod_topping")
+    
 
     def __str__(self):
-        return  " CANTORDENADA: "+ str(self.cantidad)
+        return  " CANT_ORDENADA: "+ str(self.cantidad)
