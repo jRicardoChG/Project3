@@ -7,16 +7,63 @@ class ordenes(models.Model):
     fecha = models.DateField(auto_now=False,auto_now_add=True)
     direccion = models.CharField(max_length=150)
     status = models.CharField(max_length=50)
-    id = models.ForeignKey(User,on_delete=models.CASCADE,related_name="id_dueno")
+    id_dueno = models.ForeignKey(User,on_delete=models.CASCADE,related_name="id_dueno")
 
     def __str__(self):
-        return str(self.id_usuario) +" "+ str(self.fecha) +" "+ str(id_orden) 
+        return str(self.fecha) +" "+ str(self.status) + " " + str(self.id_dueno)
 
 class toppings(models.Model):
     id_topping = models.AutoField(primary_key=True,auto_created=True,serialize=True)
-    top_nombre = models.CharField(max_length=150)
+    topp_nombre = models.CharField(max_length=150)
 
     def __str__(self):
-        return str(self.id_topping) + str(self.top_nombre)
+        return str(self.topp_nombre)
 
+class producto(models.Model):
+    id_producto = models.AutoField(primary_key=True,auto_created=True,serialize=True)
+    tipo = models.CharField(max_length=200)
 
+    def __str__(self):
+        return str(self.tipo)
+
+class subtipo(models.Model):
+    id_subtipo = models.AutoField(primary_key=True,auto_created=True,serialize=True)
+    nom_subtipo = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.nom_subtipo)
+
+class pizza(models.Model):
+    id_subtipo = models.ForeignKey(subtipo,on_delete=models.CASCADE,related_name="id_subtipoPizza")
+    num_toppings = models.IntegerField()
+    id_pizza = models.AutoField(primary_key=True,auto_created=True,serialize=True)
+
+    def __str__(self):
+        return str(self.id_subtipo) + " #TOPPINGS: " + str(self.num_toppings)
+
+class tamano(models.Model):
+    id_tamano = models.AutoField(primary_key=True,auto_created=True,serialize=True)
+    nom_tamano = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.nom_tamano)
+
+class prod_tam_sub(models.Model):
+    id_pts = models.AutoField(primary_key=True,auto_created=True,serialize=True)
+    id_subtipoPts = models.ForeignKey(subtipo,on_delete=models.CASCADE,related_name="id_subtipoPts")
+    id_productoPts = models.ForeignKey(producto,on_delete=models.CASCADE,related_name="id_productoPts")
+    id_tamanoPts = models.ForeignKey(tamano,on_delete=models.CASCADE,related_name="id_tamanoPts",null=True,blank=True)
+    precio = models.DecimalField(max_digits=10,decimal_places=2)
+
+    def __str__(self):
+        return str(self.id_subtipoPts) +" "+ str(self.id_productoPts) + " " + str(self.id_tamanoPts) + " " + str(self.precio)
+
+class prod_orden(models.Model):
+    id_prod_creado = models.AutoField(primary_key=True,auto_created=True,serialize=True)    
+    cantidad = models.IntegerField(null=False)
+    id_ordenIn = models.ForeignKey(ordenes,on_delete=models.CASCADE,related_name="id_ordenIn")
+    topping = models.ManyToManyField(toppings,blank=True,related_name="prod_topping")
+    id_ptsWho = models.ForeignKey(prod_tam_sub,on_delete=models.CASCADE,related_name="id_ptsWho") 
+
+    def __str__(self):
+        return  " CANTORDENADA: "+ str(self.cantidad)
