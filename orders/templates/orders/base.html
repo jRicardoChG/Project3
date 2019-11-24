@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/static/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <link href="/static/css/estilos.css" rel="stylesheet">
+    <title>{%block titulo%}{%endblock%}</title>
+</head>
+
+
+<body>
+    <section id=cabeceraGeneral>
+        <div class="row">
+            <div class="col-12 col-md-7 flexFather">
+                <img id="imgPinn" src="/static/images/pinocchios.png">
+            </div>
+            <div class="row col-12 col-md-5 flexFather">
+                <div class="flexFather headerButton">
+                    {%if False%}
+                    <hr class="hr">
+                    <a class="hoverRed fontBold flexSon" href="/login">Carrito Compras</a>
+                    <hr class="hr">
+                </div>
+                <div class="flexFather headerButton">
+                    <a class="hoverRed fontBold flexSon" href="/pinnochio">Menu Comprar</a>
+                    <hr class="hr">
+                </div>
+                <div class="flexFatherCol headerButton">
+                    <div class="headerLink">
+                        <a class="hoverRed fontBold flexSon" href="/login/registro">Usuario</a>
+                    </div>
+                    <div class="headerLink">
+                        <a class="hoverRed fontBold flexSon" href="/login/logout">Log Out</a>
+                    </div>
+                    {%else%}
+                    <hr class="hr">
+                    <a class="hoverRed fontBold flexSon" href="/login">Login</a>
+                    <hr class="hr">
+                </div>
+                <div class="flexFather headerButton">
+                    <a class="hoverRed fontBold flexSon" href="/pinnochio">Menu Ver</a>
+                    <hr class="hr">
+                </div>
+                <div class="flexFather headerButton">
+                    <a class="hoverRed fontBold flexSon" href="/login/registro">Registrar</a>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="cuerpoPagina">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                {%block cuerpo %}
+                {%endblock%}
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </section>
+    <section id="footer">
+        <div class="row flexFather">
+            <div class="col-0 col-sm-1"></div>
+            <div class="col-12 col-sm-10">
+                <p class="">Task done to complete the Edx web Programming Project3</p>
+                <p>Owner: Ricardo Chavez</p>
+                <p>richago29@gmail.com</p>
+            </div>
+            <div class="col-0 col-sm-1"></div>
+        </div>
+    </section>
+</body>
+<footer>
+
+</footer>
+
+</html>

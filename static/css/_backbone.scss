@@ -1,0 +1,66 @@
+#html{
+    #cabeceraGeneral{
+        background-color: rgb(200, 20, 40);
+    }
+    #footer{
+        background-color: rgb(40,120,40);
+    }
+    .global{
+        border-radius: 5px;
+        // border: solid black;
+        margin : 0px;
+        padding : 0px;
+        text-align: center;
+        color:black;
+        text-decoration : none;
+    }
+    .hoverRed:hover{
+        background-color: rgb(160, 20, 40);
+    }
+    .fontBold
+    {
+        font-weight: bold;
+    }
+    #imgPinn{
+        width: 100%;
+        max-width: 283px;
+        height :auto;
+        max-height: 150px;   
+    }
+    .flexFather{
+        display:flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+    }
+    .flexFatherCol{
+        display:flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+    }
+    .flexSon
+    {
+        display: flex;
+        width: 100%;
+        height:100%;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+    .headerButton{
+        width: 33.33%;
+        height:100%;
+    }
+    .headerLink{
+        width: 100%;
+        height:50%;
+    }
+    .hr{
+        align-self: center;
+        height: 80%;
+        border:solid;
+        border-width: 1px;
+        border-color: rgb(120, 20, 40);
+    }
+}
