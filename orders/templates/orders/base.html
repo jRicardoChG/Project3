@@ -22,9 +22,9 @@
             <div class="col-12 col-md-7 flexFather">
                 <img id="imgPinn" src="/static/images/pinocchios.png">
             </div>
-            <div class="row col-12 col-md-5 flexFather">
+            <div class="minheight row col-12 col-md-5 flexFather">
                 <div class="flexFather headerButton">
-                    {%if False%}
+                    {%if username%}
                     <hr class="hr">
                     <a class="hoverRed fontBold flexSon" href="/login">Carrito Compras</a>
                     <hr class="hr">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="flexFatherCol headerButton">
                     <div class="headerLink">
-                        <a class="hoverRed fontBold flexSon" href="/login/registro">Usuario</a>
+                        <a class="hoverRed fontBold flexSon" href="/login/registro"> Hola {{username.username}}!</a>
                     </div>
                     <div class="headerLink">
                         <a class="hoverRed fontBold flexSon" href="/login/logout">Log Out</a>

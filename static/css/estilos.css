@@ -2,6 +2,8 @@
   background-color: #c81428; }
 #html #footer {
   background-color: #287828; }
+#html .minheight {
+  min-height: 70px; }
 #html .global {
   border-radius: 5px;
   margin: 0px;
