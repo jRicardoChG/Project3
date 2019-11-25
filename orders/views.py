@@ -7,4 +7,8 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request,"orders/home.html")
+    if request.user.is_authenticated:
+        context = {"username":request.user}
+        return render(request,"orders/home.html",context)
+    else:
+        return HttpResponseRedirect("../login")

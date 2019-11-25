@@ -8,7 +8,11 @@ Login Usuarios
 
 <div class="form-group">
     <h2>Hola soy el login de tu aplicacion</h2>
-    <form action="/login" method="post">
+    <form action="/login/" method="POST">
+        {%csrf_token%}
+        {%if noExiste%}
+        <p>{{noExiste}}</p>
+        {%endif%}
         <input class="form-control" type="text" name="username" placeholder="Username">
         <input class="form-control" type="password" name="contrasena" placeholder="Contraseña">
         <button class="form-control btn btn-success" type="submit">Login</button>
