@@ -11,4 +11,4 @@ def index(request):
         context = {"username":request.user}
         return render(request,"orders/home.html",context)
     else:
-        return HttpResponseRedirect("../login")
+        return render(request,"orders/home.html")

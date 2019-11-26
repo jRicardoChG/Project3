@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="/static/javascript/javascript.js"></script>
+    <script src="/static/javascript/javascript.js" defer></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
@@ -22,31 +22,31 @@
                 <div class="flexFather headerButton">
                     {%if username%}
                     <hr class="hr">
-                    <a class="hoverRed fontBold flexSon" href="/login">Carrito Compras</a>
+                    <a class="hoverRed fontBold flexSon global" href="/login">Carrito Compras</a>
                     <hr class="hr">
                 </div>
                 <div class="flexFather headerButton">
-                    <a class="hoverRed fontBold flexSon" href="/pinnochio">Menu Comprar</a>
+                    <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu Comprar</a>
                     <hr class="hr">
                 </div>
                 <div class="flexFatherCol headerButton">
                     <div class="headerLink">
-                        <a class="hoverRed fontBold flexSon" href="/login/registro">Hola {{username.username}}!</a>
+                        <p class="fontBold flexSon global" >Hola {{username.username}}!</p>
                     </div>
                     <div class="headerLink">
-                        <a class="hoverRed fontBold flexSon" href="/login/logout">Log Out</a>
+                        <a class="hoverRed fontBold flexSon global" href="/login/logout">Log Out</a>
                     </div>
                     {%else%}
                     <hr class="hr">
-                    <a class="hoverRed fontBold flexSon" href="/login">Login</a>
+                    <a class="hoverRed fontBold flexSon global" href="/login">Login</a>
                     <hr class="hr">
                 </div>
                 <div class="flexFather headerButton">
-                    <a class="hoverRed fontBold flexSon" href="/pinnochio">Menu Ver</a>
+                    <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu Ver</a>
                     <hr class="hr">
                 </div>
                 <div class="flexFather headerButton">
-                    <a class="hoverRed fontBold flexSon" href="/login/registro">Registrar</a>
+                    <a class="hoverRed fontBold flexSon global" href="/login/registro">Registrar</a>
                     {%endif%}
                 </div>
             </div>
@@ -74,8 +74,5 @@
         </div>
     </section>
 </body>
-<footer>
-
-</footer>
 
 </html>
