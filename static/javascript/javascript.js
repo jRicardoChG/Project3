@@ -1,7 +1,13 @@
 var xhr = new XMLHttpRequest();
+var menu = document.querySelector("#menu");
+
 
 xhr.onreadystatechange = function(){
-    
+    if(xhr.readyState == 4)
+    {
+        respuesta = xhr.responseText; 
+        console.log(respuesta["respuesta"]);
+    }
 }
 
 window.onload = function (){
@@ -28,5 +34,16 @@ window.addEventListener("DOMInsertedNode", function(){
 
 function poblarMenu(producto)
 {
+    peticion(producto);
     var elemento = producto.value;
+    menu.innerHTML = "";
+}
+
+function peticion(elemento)
+{
+    xhr.open("GET","/pinnochio/menu",true);
+    // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // xhr.setRequestHeader('X-CSRF-TOKEN', document.cookie.split("=")[1]);
+    // xhr.send("producto="+elemento.innerHTML.toString());
+    xhr.send();
 }

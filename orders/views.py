@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render
@@ -12,3 +13,10 @@ def index(request):
         return render(request,"orders/home.html",context)
     else:
         return render(request,"orders/home.html")
+
+def producto(request):
+    if request.method == "GET":
+        # producto = request.POST["producto"]
+        # print(producto)
+        return HttpResponse({"respuesta":"enviaste un GET"})
+    return HttpResponse({"respuesta":"No pediste nada"})
