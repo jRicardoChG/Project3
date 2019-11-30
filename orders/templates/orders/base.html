@@ -17,23 +17,23 @@
 
 <body>
     <section id=cabeceraGeneral>
-        <div class="row">
-            <div class="col-12 col-md-7 flexFather">
+        <div class="row global">
+            <div class="col-12 col-md-7 flexFather global">
                 <img id="imgPinn" src="/static/images/pinocchios.png">
             </div>
-            <div class="minheight row col-12 col-md-5 flexFather">
-                <div class="flexFather headerButton">
+            <div class="minheight row col-12 col-md-5 flexFather global">
+                <div class="flexFather headerButton global">
                     {%if username%}
-                    <hr class="hr">
+                    <hr class="hr global">
                     <a class="hoverRed fontBold flexSon global" href="/login">Carrito Compras</a>
-                    <hr class="hr">
+                    <hr class="hr global">
                 </div>
-                <div class="flexFather headerButton">
+                <div class="flexFather headerButton global">
                     <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu Comprar</a>
                     <hr class="hr">
                 </div>
-                <div class="flexFatherCol headerButton">
-                    <div class="headerLink">
+                <div class="flexFatherCol headerButton global">
+                    <div class="headerLink global">
                         <p class="fontBold flexSon global">Hola {{username.username}}!</p>
                     </div>
                     <div class="headerLink">

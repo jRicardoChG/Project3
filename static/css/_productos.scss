@@ -1,0 +1,32 @@
+#html {
+
+    .productos {
+        margin: 5px;
+        min-width: 302px;
+        min-height: 170px;
+        width: 302px;
+        height: 170px;
+    }
+
+    .posRel {
+        position: relative;
+    }
+
+    .posAbs {
+        position: Absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .whiteFont {
+        color: white;
+        font-weight: bold;
+        text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    }
+}

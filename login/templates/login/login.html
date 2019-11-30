@@ -6,17 +6,17 @@ Login Usuarios
 
 {%block cuerpo%}
 
-<div class="form-group">
+<div class="form-group global">
     <h2>Hola soy el login de tu aplicacion</h2>
-    <form action="/login/" method="POST">
+    <form action="/login/" method="POST" class="global">
         {%csrf_token%}
         {%if noExiste%}
         <p>{{noExiste}}</p>
         {%endif%}
-        <input class="form-control" type="text" name="username" placeholder="Username" required>
-        <input class="form-control" type="password" name="contrasena" placeholder="Contraseña" required>
-        <button class="form-control btn btn-success" type="submit">Login</button>
-        <a class="form-control btn btn-success" href="registro/">Registrate</a>
+        <input class="form-control global" type="text" name="username" placeholder="Username" required>
+        <input class="form-control global" type="password" name="contrasena" placeholder="Contraseña" required>
+        <button class="form-control btn btn-success global" type="submit">Login</button>
+        <a class="form-control btn btn-success global" href="registro/">Registrate</a>
     </form>
 </div>
 

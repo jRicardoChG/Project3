@@ -3,19 +3,19 @@
 Registro
 {%endblock%}
 {%block cuerpo%}
-    <div class="form-group ">
+    <div class="form-group global">
         {%if mensaje%}
         <h2>{{mensaje}}</h2>
         {%endif%}
         <h2>Registrate</h2>
         <form action="" method="POST">
             {%csrf_token%}
-            <input class="form-control" type="text" name="username" placeholder="Nombre de usuario" required>
-            <input class="form-control" type="text" name="email" placeholder="Email" required>
-            <input class="form-control" ytpe="text" name="firstname" placeholder="Nombre" required>
-            <input class="form-control" type="text" name="lastname" placeholder="Apellido" required>
-            <input class="form-control" type="password" name="contrasena" placeholder="Contraseña" required>
-            <button class="form-control" type="submit">Registrar</button>
+            <input class="form-control global" type="text" name="username" placeholder="Nombre de usuario" required>
+            <input class="form-control global" type="text" name="email" placeholder="Email" required>
+            <input class="form-control global" ytpe="text" name="firstname" placeholder="Nombre" required>
+            <input class="form-control global" type="text" name="lastname" placeholder="Apellido" required>
+            <input class="form-control global" type="password" name="contrasena" placeholder="Contraseña" required>
+            <button class="form-control global" type="submit">Registrar</button>
         </form>
     </div>
 {%endblock%}

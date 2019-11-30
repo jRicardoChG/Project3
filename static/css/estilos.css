@@ -28,6 +28,18 @@
 #html .flexFatherCol {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-items: center; }
+#html .flexFatherColP {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center; }
+#html .flexFatherP {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   align-content: center;
   justify-content: center; }
 #html .flexSon {
@@ -49,5 +61,27 @@
   border: solid;
   border-width: 1px;
   border-color: #781428; }
+#html .pinoBackGround {
+  background-image: url("../images/pinoFitSize.JPG");
+  background-repeat: repeat; }
+
+#html .productos {
+  margin: 5px;
+  min-width: 302px;
+  min-height: 170px;
+  width: 302px;
+  height: 170px; }
+#html .posRel {
+  position: relative; }
+#html .posAbs {
+  position: Absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%; }
+#html .whiteFont {
+  color: white;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
 
 /*# sourceMappingURL=estilos.css.map */

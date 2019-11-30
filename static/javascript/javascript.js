@@ -1,3 +1,9 @@
+var xhr = new XMLHttpRequest();
+
+xhr.onreadystatechange = function(){
+    
+}
+
 window.onload = function (){
     var todo = document.querySelectorAll("*");
     for (tag of todo)
@@ -19,3 +25,8 @@ window.addEventListener("DOMInsertedNode", function(){
         }
     }
 });
+
+function poblarMenu(producto)
+{
+    var elemento = producto.value;
+}
