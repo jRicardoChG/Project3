@@ -1,11 +1,15 @@
 import sys
 import os
 
+
+
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse,Http404,HttpResponseRedirect, HttpRequest
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.models import User
+
+
 
 def loginView(request):
     if request.user.is_authenticated:
@@ -31,6 +35,8 @@ def loginView(request):
         else:
             return render(request,'login/login.html')
 
+
+
 def registroView(request):
     if request.method == "POST":
         nombreUsuario = request.POST["username"]
@@ -48,6 +54,9 @@ def registroView(request):
     return render(request,'login/registro.html')
 
 
+
 def logoutView(request):
     logout(request)
     return render(request,"login/logout.html")
+
+
