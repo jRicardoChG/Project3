@@ -41,9 +41,8 @@ function poblarMenu(producto)
 
 function peticion(elemento)
 {
-    xhr.open("GET","/pinnochio/menu",true);
-    // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    // xhr.setRequestHeader('X-CSRF-TOKEN', document.cookie.split("=")[1]);
-    // xhr.send("producto="+elemento.innerHTML.toString());
-    xhr.send();
+    xhr.open("POST","/pinnochio/menu",true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader('X-CSRF-TOKEN',document.getElementsByName('csrfmiddlewaretoken').value);
+    xhr.send("csrfmiddlewaretoken="+document.getElementsByName('csrfmiddlewaretoken').value,"producto="+elemento.innerHTML.toString());;
 }

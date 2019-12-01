@@ -2,7 +2,7 @@ import sys
 import os
 import json
 
-from django.http import HttpResponse,Http404,HttpResponseRedirect
+from django.http import HttpResponse,Http404,JsonResponse
 from django.shortcuts import render
 
 
@@ -15,8 +15,8 @@ def index(request):
         return render(request,"orders/home.html")
 
 def producto(request):
-    if request.method == "GET":
-        # producto = request.POST["producto"]
-        # print(producto)
-        return HttpResponse({"respuesta":"enviaste un GET"})
-    return HttpResponse({"respuesta":"No pediste nada"})
+    if request.method == "POST":
+        producto = request.POST["producto"]
+        print(producto)
+        return JsonResponse({"respuesta":"enviaste un POST"})
+    return JsonResponse({"respuesta":"No pediste nada"})
