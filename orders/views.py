@@ -16,7 +16,7 @@ def index(request):
 
 def producto(request):
     if request.method == "POST":
-        producto = request.POST["producto"]
+        producto = request.POST.get("producto")
         print(producto)
         return JsonResponse({"respuesta":"enviaste un POST"})
     return JsonResponse({"respuesta":"No pediste nada"})
