@@ -4,69 +4,73 @@
 Home Orders
 {%endblock%}
 {%block cuerpo%}
+{%csrf_token%}
 <div>
     <h2>Menu</h2>
 </div>
-<div class="flexFatherP global" id="menu">
-    <div class="productos global posRel hoverProd">
-        <img src="/static/images/pizzasFitSize.jpg" class="flexSon">
-        <div class="global posAbs">
-            <div class="global flexSon">
-                <h2 class="whiteFont global flexSon" onclick=poblarMenu(this)>
-                    {%csrf_token%}Pizzas
-                </h2>
-            </div>
-        </div>
-    </div>
-    <div class="productos global posRel hoverProd">
-        <img src="/static/images/subsmallFitSize.jpg" class="flexSon">
-        <div class="global posAbs">
-            <div class="global flexSon">
-                <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>
-                    Subs
-                </h2>
-            </div>
-        </div>
-    </div>
-    <div class="productos global posRel hoverProd">
-        <img src="/static/images/pastasFitSize.jpg" class="flexSon">
-        <div class="global posAbs">
-            <div class="global flexSon">
-                <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>
-                    Pastas
-                </h2>
-            </div>
-        </div>
-    </div>
-    <div class="productos global posRel hoverProd">
-        <img src="/static/images/dinnerplanesFitSize.jpg" class="flexSon">
-        <div class="global posAbs">
-            <div class="global flexSon">
-                <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>
-                    Dinner Plates
-                </h2>
-            </div>
-        </div>
-    </div>
-    <div class="productos global posRel hoverProd">
-        <img src="/static/images/saladsFitSize.jpg" class="flexSon">
-        <div class="global posAbs">
-            <div class="global flexSon">
-                <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>
-                    Salads
-                </h2>
-            </div>
-        </div>
-    </div>
-    <div class="productos global posRel hoverProd">
-            <img src="/static/images/sodatapsFitSize.jpg" class="flexSon">
-            <div class="global posAbs">
-                <div class="global flexSon">
-                    <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>
-                        Sodas
-                    </h2>
+<div class="flexFatherP global" >
+    <div class="flexFatherP global" id="menu">
+            <div class="productos global posRel hoverProd">
+                    <img src="/static/images/pizzasFitSize.jpg" class="flexSon">
+                    <div class="global posAbs">
+                        <div class="global flexSon">
+                            <h2 class="whiteFont global flexSon" onclick=poblarMenu(this)>Pizzas</h2>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="productos global posRel hoverProd">
+                    <img src="/static/images/subsmallFitSize.jpg" class="flexSon">
+                    <div class="global posAbs">
+                        <div class="global flexSon">
+                            <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Subs</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="productos global posRel hoverProd">
+                    <img src="/static/images/pastasFitSize.jpg" class="flexSon">
+                    <div class="global posAbs">
+                        <div class="global flexSon">
+                            <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Pastas</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="productos global posRel hoverProd">
+                    <img src="/static/images/dinnerplanesFitSize.jpg" class="flexSon">
+                    <div class="global posAbs">
+                        <div class="global flexSon">
+                            <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Dinner Plattes</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="productos global posRel hoverProd">
+                    <img src="/static/images/saladsFitSize.jpg" class="flexSon">
+                    <div class="global posAbs">
+                        <div class="global flexSon">
+                            <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Salads</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="productos global posRel hoverProd">
+                        <img src="/static/images/sodatapsFitSize.jpg" class="flexSon">
+                        <div class="global posAbs">
+                            <div class="global flexSon">
+                                <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Sodas</h2>
+                            </div>
+                        </div>
+                </div>
     </div>
+    <div class="flexFatherP global" id ="pedirProd">
+        <label>Seleccionar producto</label>
+        <select id="selSubtipo">
+            <option>
+                una opcion
+            </option>
+            <option>
+                dos opcioens
+            </option>
+        </select>
+
+    </div>
+
 </div>
 {%endblock%}
