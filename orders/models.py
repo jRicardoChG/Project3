@@ -65,6 +65,5 @@ class prod_orden(models.Model):
     id_ptsWho = models.ForeignKey(prod_tam_sub,on_delete=models.CASCADE,related_name="id_ptsWho") 
     topping = models.ManyToManyField(toppings,blank=True,related_name="prod_topping")
     
-
     def __str__(self):
         return  " CANT_ORDENADA: "+ str(self.cantidad)
