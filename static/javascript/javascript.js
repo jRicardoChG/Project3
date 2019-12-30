@@ -1,16 +1,17 @@
 var xhr = new XMLHttpRequest();
+var parser = new DOMParser();
 var menu = document.querySelector("#menu");
 var formElemento = document.querySelector("#formSubtipo");
 var pedirProd = document.querySelector("#pedirProd");
+var topps = document.querySelector("#toppings");
 
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4)
     {
-        var respuesta = JSON.parse(xhr.responseText); 
+        respuesta = JSON.parse(xhr.responseText); 
         console.log(respuesta);
         llenarSubtipo(respuesta);
     }
-
 }
 
 window.onload = function (){
@@ -62,7 +63,6 @@ function llenarSubtipo(respuesta)
     for(valor of respuesta["respuesta"])
     {
         var divP = document.createElement("div");
-        var raya = document.createElement("hr");
         var rad = document.createElement("input");
         var labl = document.createElement("label");
         rad.type = "radio";
@@ -79,5 +79,28 @@ function llenarSubtipo(respuesta)
         formElemento.appendChild(divP);
         cont++;
     }
-
+    if(respuesta["toppings"]!="false")
+    {
+        var askNumTop1 = "<div class='flexFatherCol global'><label class='fontBold global'>Cuantos Toppings deseas?</label><input type='number' name='num_Toppings' id='num_Toppings' min='1' max='3' placeholder='1'/></div>";
+        topps.innerHTML = askNumTop1;
+        topps.parentNode.innerHTML += "<hr class='hr global'>";
+        askNumTop = document.querySelector("#num_Toppings");
+    }
+    
 }
+
+
+document.addEventListener("change",function(){
+    if(askNumTop)
+    {
+        askNumTop.addEventListener("change",function(){
+            for(i=0;i<askNumTop.value;i++)
+            {
+            var topps = document.querySelector("#toppings");
+            var seltopps = "<div class='global'><select class='global form-control' id='selToppings"+i+"'><option value='hola'>Hola</option></select></div>";
+            topps.innerHTML += seltopps;
+            }  
+        });
+    }
+})
+
