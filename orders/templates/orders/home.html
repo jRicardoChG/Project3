@@ -69,17 +69,23 @@ Home Orders
         <div id="tamano" class="flexFatherColP minWidth60 ocultar">
             <label class="fontBold">Seleccione tamaño</label>
             <div class="flexFatherLeftRow width100 global">
-                <input class="global flexItem" type="radio" name="pequeno" value="small">
-                <label class="textLeft textLeftMargin">Pequeño</label>
+                <input class="global flexItem" type="radio" name="tamano" value="small" id="peque" checked>
+                <label class="textLeft textLeftMargin" for="peque">Pequeño</label>
             </div>
             <div class="flexFatherLeftRow width100 global">
-                <input class="global flexItem" type="radio" name="grande" value="large">
-                <label class="textLeft global textLeftMargin">Grande</label>
+                <input class="global flexItem" type="radio" name="tamano" value="large" id="grande">
+                <label class="textLeft global textLeftMargin" for="grande">Grande</label>
             </div>
         </div>
         <hr class="hr ocultar">
-        <div id="toppings" class="flexFatherColP minWidth60 ocultar">
+        <div id="toppings" class="flexFatherColP minWidth60 ocultar"></div>
+        
+        <div id="precio" class="flexFatherColP minWidth60 ocultar">
+            <p class="fontBold">Precio total:</p>
+            <p id="precioParcial">valor tanto puto</p>
         </div>
+        <hr class="hr ocultar">
+        
     </div>
 
 </div>

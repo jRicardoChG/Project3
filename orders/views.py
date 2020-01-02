@@ -41,4 +41,18 @@ def productoPedido(request):
         else:
             addsPizzas = "false"        
         return JsonResponse({"respuesta":respuesta,"toppings":addsPizzas})
-    return JsonResponse({"respuesta":"No pediste nada"})
+    return JsonResponse({"respuesta":"No pediste nada","toppings":"false"})
+
+def precioMostrar(request):
+    if(request.POST.get("producto")):
+        vectorJson = request.POST.get("producto").split(",")
+        if(len(vectorJson)==3):
+            subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1]).values("id_subtipoPts")
+            subtipoPizza = pizza.objects.all()
+        else:
+            subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1])
+            subtipoPizza = pizza.objects.all().values
+        print(subfiltro)
+        print(subtipoPizza)
+
+    return JsonResponse({"precio":"hola soy el preico correcto jajaja","toppings":"false"})

@@ -1,4 +1,4 @@
-
+var eventoCambio = new Event("change");
 var xhr = new XMLHttpRequest();
 var parser = new DOMParser();
 var menu = document.querySelector("#menu");
@@ -6,16 +6,32 @@ var formElemento = document.querySelector("#formSubtipo");
 var pedirProd = document.querySelector("#pedirProd");
 var topps = document.querySelector("#toppings");
 var banderaCreado = false;
-var askNumTop1 = "</div><div class='flexFatherCol global'><label class='fontBold global'>Cuantos Toppings deseas?</label><input type='number' name='num_Toppings' id='num_Toppings' min='1' max='3' placeholder='#'/></div><div id='selTopFather'>";
-var askNumTop
+var askNumTop1 = "</div><div class='flexFatherCol global'><label class='fontBold global'>Cuantos Toppings deseas?</label><input type='number' name='num_Toppings' id='num_Toppings' min='0' max='3' placeholder='#'/></div><div id='selTopFather'>";
+var separador = document.createElement("hr");
+separador.classList.add("hr","global");
 
+function cargarPrecio()
+{
+        var subprodSel = document.querySelector("input[name=ProdSeleccionado]:checked").value;
+        var tamSel = document.querySelector("input[name=tamano]:checked").value;
+        if(document.querySelector("#num_Toppings"))
+        {
+            var numTopSel = document.querySelector("#num_Toppings").value;
+            peticion(subprodSel+","+tamSel+","+numTopSel,"precio");
+        }
+        else
+        {
+            peticion(subprodSel+","+tamSel,"precio");
+        }
+}
 
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4)
     {
         respuesta = JSON.parse(xhr.responseText); 
         console.log(respuesta);
-        llenarSubtipo(respuesta);
+        if(respuesta["respuesta"])
+            llenarSubtipo(respuesta);
     }
 }
 
@@ -43,7 +59,7 @@ window.addEventListener("DOMInsertedNode", function(){
 
 function poblarMenu(producto)
 {
-    peticion(producto);
+    peticion(producto,"menu");
     menu.classList.add("ocultar");
     for(hijo of pedirProd.children)
     {
@@ -54,23 +70,35 @@ function poblarMenu(producto)
     }
 }
 
-function peticion(elemento)
+function peticion(elemento,ruta)
 {
-    xhr.open("POST","/pinnochio/menu",true);
+    xhr.open("POST","/pinnochio/"+ruta,true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // xhr.setRequestHeader('X-CSRF-TOKEN',document.getElementsByName('csrfmiddlewaretoken')[0].value);
-    xhr.send("csrfmiddlewaretoken="+document.getElementsByName('csrfmiddlewaretoken')[0].value+"&producto="+elemento.innerHTML);
+    if(typeof elemento === "string")
+        xhr.send("csrfmiddlewaretoken="+document.getElementsByName('csrfmiddlewaretoken')[0].value+"&producto="+elemento);
+    else
+        xhr.send("csrfmiddlewaretoken="+document.getElementsByName('csrfmiddlewaretoken')[0].value+"&producto="+elemento.innerHTML);
 }
 
 function crearEventosRadios()
 {       
     var divSubTipo = document.querySelector("#subtipo");
     divSubTipo.addEventListener("change",function(){
-        var prod1=document.querySelector("#Producto1");
-        var lprod1 = document.querySelector("#labProd1");
-        var prod3=document.querySelector("#Producto3");
-        var lprod3 = document.querySelector("#labProd3");
-        if(prod1.checked || prod3.checked || lprod1.checked || prod3.checked)
+        var tiposPizzas = document.querySelectorAll("input[name=ProdSeleccionado]");
+        var sicSpec = null;
+        var regSpec = null;
+        for(valor of tiposPizzas)
+        {
+            if(valor.value.includes("special") && valor.value.includes("sicilian"))
+                sicSpec = valor;
+            if(valor.value.includes("special") && valor.value.includes("regular"))
+                regSpec = valor;
+        }
+        var lsicSpec = sicSpec.nextElementSibling;
+        var lregSpec = regSpec.nextElementSibling;
+
+        if(sicSpec.checked || regSpec.checked || lsicSpec.checked || lregSpec.checked)
         {
             askNumTop.setAttribute("max",5);
             askNumTop.value = 5;
@@ -103,15 +131,20 @@ function llenarSubtipo(respuesta)
         divP.classList.add("flexFatherLeftRow","global","width100");
         rad.classList.add("flexItem","global");
         labl.classList.add("global","textLeftMargin");
+        if(cont==0)
+        {
+            rad.setAttribute("checked","true");
+        }
         divP.appendChild(rad);
         divP.appendChild(labl);
         formElemento.appendChild(divP);
         cont++;
     }
     if(respuesta["toppings"]!="false")
-    {
+    { 
+        document.querySelector("#pedirProd").insertBefore(separador,document.querySelector("#precio"));
         topps.innerHTML = askNumTop1;
-        topps.parentNode.innerHTML += "<hr class='hr global'>";
+        // topps.parentNode.innerHTML += "<hr class='hr global'>";
         askNumTop = document.querySelector("#num_Toppings");
         if(askNumTop)
         {
@@ -119,24 +152,57 @@ function llenarSubtipo(respuesta)
         }
         if(!banderaCreado)
         {
-            eventoCambio = new Event("change");
+            var tiposPizzas = document.querySelectorAll("input[name=ProdSeleccionado]");
+            var sicSpec = null;
+            var regSpec = null;
+            var regPizza = null;
+            var sicPizza = null;
+            for(valor of tiposPizzas)
+            {
+                if(valor.value.includes("special") && valor.value.includes("sicilian"))
+                    sicSpec = valor;
+                if(valor.value.includes("special") && valor.value.includes("regular"))
+                    regSpec = valor;
+                if(!valor.value.includes("special") && valor.value.includes("Siciliana"))
+                    sicPizza = valor;
+                if(!valor.value.includes("special") && valor.value.includes("regular"))
+                    regPizza = valor;
+            }
             askNumTop.addEventListener("change",function(){
-                console.log("hola cambiaste");
+                if(askNumTop.value==4)
+                {
+                    askNumTop.value=3;
+                    if(sicSpec.checked)
+                    {
+                        sicPizza.checked=true;
+                    }
+                    else
+                    {
+                        regPizza.checked=true;
+                    }
+                }
                 document.querySelector("#selTopFather").innerHTML = "";
                 banderaCreado = true;
                 if(askNumTop.value=="")
-                    askNumTop.value = 1;
+                    askNumTop.value = 0;
                 for(let i=0;i<askNumTop.value;i++)
                 {
-                    console.log("appden de "+(i+1)+" hijos");
                     var seltopps = document.createElement("div");
-                    seltopps.innerHTML = "<select class='global form-control' id='selToppings"+(i+1)+"'><option value='hola'>Hola</option></select>";
+                    seltopps.innerHTML = "<select class='global form-control' id='selToppings"+(i+1)+"'></select>";
+                    for(valor of respuesta["toppings"])
+                    {
+                        var opciontop = document.createElement("option");
+                        opciontop.innerHTML = valor;
+                        seltopps.children[0].appendChild(opciontop);
+                    }
                     document.querySelector("#selTopFather").appendChild(seltopps);
-                }  
+                }
             });
+            askNumTop.dispatchEvent(eventoCambio);
         }
     }
-    
+    pedirProd.addEventListener("change",cargarPrecio);
+    pedirProd.dispatchEvent(eventoCambio);
 }
 
 
