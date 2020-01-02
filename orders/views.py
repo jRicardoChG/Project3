@@ -33,7 +33,7 @@ def productoPedido(request):
         queryDistinct = deleteRepetidos(querySubtipo)
         for i in range(0,len(queryDistinct)):
             respuesta[len(respuesta):]=[queryDistinct[i]["nom_subtipo"]]
-        # traigo ellemtnos de toppings si lo solicitado es una pizza
+        # traigo elementos de toppings si lo solicitado es una pizza
         if(productoSel=="Pizzas"):
             queryTopps = toppings.objects.all().values("topp_nombre")
             for valor in queryTopps:
@@ -46,13 +46,11 @@ def productoPedido(request):
 def precioMostrar(request):
     if(request.POST.get("producto")):
         vectorJson = request.POST.get("producto").split(",")
+        print(request.POST.get("producto"))
         if(len(vectorJson)==3):
-            subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1]).values("id_subtipoPts")
-            subtipoPizza = pizza.objects.all()
+            subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1],id_subtipoPtsPizza__num_toppings=vectorJson[2]).values("precio")[0]["precio"]
         else:
-            subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1])
-            subtipoPizza = pizza.objects.all().values
+            subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1]).values("precio")[0]["precio"]
         print(subfiltro)
-        print(subtipoPizza)
 
-    return JsonResponse({"precio":"hola soy el preico correcto jajaja","toppings":"false"})
+    return JsonResponse({"precio":subfiltro,"toppings":"false"})

@@ -51,7 +51,7 @@ class tamano(models.Model):
 class prod_tam_sub(models.Model):
     id_pts = models.AutoField(primary_key=True,auto_created=True,serialize=True)
     id_subtipoPts = models.ForeignKey(subtipo,on_delete=models.CASCADE,related_name="id_subtipoPts")
-    id_subtipoPtsPizza = models.ForeignKey(pizza,on_delete=models.CASCADE,related_name="id_subtipoPtsPizza",null="true")
+    id_subtipoPtsPizza = models.ForeignKey(pizza,on_delete=models.CASCADE,related_name="id_subtipoPtsPizza",null=True,blank=True)
     id_productoPts = models.ForeignKey(producto,on_delete=models.CASCADE,related_name="id_productoPts")
     id_tamanoPts = models.ForeignKey(tamano,on_delete=models.CASCADE,related_name="id_tamanoPts",null=True,blank=True)
     precio = models.DecimalField(max_digits=10,decimal_places=2)
