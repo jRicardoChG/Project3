@@ -108,12 +108,12 @@ Home Orders
         <div id="toppings" class="flexFatherColP minWidth60 ocultar global"></div>
         <div id="precio" class="flexFatherColP minWidth60 ocultar global">
             <p class="fontBold global">Precio total:</p>
-            <p id="precioParcial">valor tanto puto</p>
+            <p id="precioParcial">Precio Desconocido</p>
         </div>
         <hr class="hr ocultar global">
         {%if username%}
         <div id="submit" class="flexFatherColP minWidth60 ocultar global">
-            <h2 id="carrito" class="flexSon global BotonSuccess whiteFont">Add to Car</h2>
+            <h2 id="carrito" onclick=enviarDatosCarrito() class="flexSon global BotonSuccess whiteFont">Add to Car</h2>
         </div>
         <hr class="hr ocultar global">
         {%endif%}

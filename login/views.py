@@ -56,7 +56,12 @@ def registroView(request):
 
 
 def logoutView(request):
+    if(request.session["carrito"] is not None):
+        carritoCompras = request.session["carrito"]
+    else:
+        carritoCompras = None
     logout(request)
+    request.session["carrito"]=carritoCompras
     return render(request,"login/logout.html")
 
 

@@ -10,14 +10,15 @@ var banderaCreado = false;
 var askNumTop1 = "</div><div class='flexFatherCol global'><label class='fontBold global'>Cuantos Toppings deseas?</label><input class='global form-control' type='number' name='num_Toppings' id='num_Toppings' min='0' max='3' placeholder='#'/></div><div id='selTopFather'>";
 var separador = document.createElement("hr");
 separador.classList.add("hr","global");
-var carrito = document.querySelector("#carrito");
-carrito.addEventListener("click",enviarDatosCarrito);
-
 
 // cuando el usuario elija un producto y este logueado envio los datos para crear elemento del carrito
+// se activa con un onclick html
 function enviarDatosCarrito()
 {
-    
+    var subprodSel = document.querySelector("input[name=ProdSeleccionado]:checked").value;
+    var tamSel = document.querySelector("input[name=tamano]:checked").value;
+    var precSel = document.querySelector("#precioParcial").innerHTML.split(" ").filter(x => x!="$").join();
+    peticion(subprodSel+","+tamSel+","+precSel,"carrito");
 }
 
 

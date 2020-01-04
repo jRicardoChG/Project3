@@ -19,10 +19,32 @@ def index(request):
         return render(request,"orders/home.html",context)
 
 
-def carrito(request):
+def carritoView(request):
+    #Django deja modificar request.session pero no request.session["elemento interno"], por ello debo poner esta linea en la vista
+    request.session.modified = True
     if request.user.is_authenticated:
-        context = {"username":request.user}
-        return render(request,"orders/carrito.html",context)
+        if(request.method == "POST"):
+            try:
+                if(request.session["carrito"]["contador"] is None):
+                    print("is None")
+                    request.session["carrito"]["contador"]=0
+                    cont = 0
+            except:
+                print("falle")
+                request.session["carrito"]={}
+                request.session["carrito"]["contador"]=0
+            cont = request.session.get("carrito")["contador"]
+            print(str(cont))
+            prodCarrito = request.POST.get("producto").split(",")
+            request.session["carrito"][cont]=prodCarrito
+            cont=cont+1
+            print(str(cont))
+            request.session["carrito"]["contador"]=cont
+            print(request.session["carrito"])
+            return JsonResponse({"respue":"Has anadido algo al carrito"})
+        elif(request.method=="GET"):
+            context = {"username":request.user}
+            return render(request,"orders/carrito.html",context)                
     else:
         context = {"username":None}
     return render(request,"orders/home.html",context)
