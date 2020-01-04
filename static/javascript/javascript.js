@@ -1,3 +1,4 @@
+// variables globales
 var eventoCambio = new Event("change");
 var xhr = new XMLHttpRequest();
 var parser = new DOMParser();
@@ -6,11 +7,21 @@ var formElemento = document.querySelector("#formSubtipo");
 var pedirProd = document.querySelector("#pedirProd");
 var topps = document.querySelector("#toppings");
 var banderaCreado = false;
-var askNumTop1 = "</div><div class='flexFatherCol global'><label class='fontBold global'>Cuantos Toppings deseas?</label><input type='number' name='num_Toppings' id='num_Toppings' min='0' max='3' placeholder='#'/></div><div id='selTopFather'>";
+var askNumTop1 = "</div><div class='flexFatherCol global'><label class='fontBold global'>Cuantos Toppings deseas?</label><input class='global form-control' type='number' name='num_Toppings' id='num_Toppings' min='0' max='3' placeholder='#'/></div><div id='selTopFather'>";
 var separador = document.createElement("hr");
 separador.classList.add("hr","global");
+var carrito = document.querySelector("#carrito");
+carrito.addEventListener("click",enviarDatosCarrito);
 
 
+// cuando el usuario elija un producto y este logueado envio los datos para crear elemento del carrito
+function enviarDatosCarrito()
+{
+    
+}
+
+
+// cuando llega una peticion ajax del servidor pueblo los radio buttons de los productos si estan correctos y si tengo precio el precio tambien
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4)
     {
@@ -22,6 +33,8 @@ xhr.onreadystatechange = function(){
     }
 }
 
+
+// cuando la pagina cargue completamente añado la clase global a todos los elementos
 window.onload = function (){
     var todo = document.querySelectorAll("*");
     for (tag of todo)
@@ -33,6 +46,8 @@ window.onload = function (){
     }
 };
 
+
+// cada vez que un nodo nuevo sea insertado le añado la clase global
 window.addEventListener("DOMInsertedNode", function(){
     var todo = document.querySelectorAll("*");
     for (tag of todo)
@@ -44,6 +59,8 @@ window.addEventListener("DOMInsertedNode", function(){
     }
 });
 
+
+// en esta funcion configuro el comportamiento epecial de la seccion tamano, segun los productos
 function modDivTamano(flag)
 {
     if(flag=="unico")
@@ -67,10 +84,16 @@ function modDivTamano(flag)
         pedirProd.children["tamano"].children[1].classList.remove("ocultar");
         pedirProd.children["tamano"].children[2].classList.remove("ocultar");
         pedirProd.children["tamano"].children[3].classList.add("ocultar");
-        document.querySelector("#peque").checked = true;
+        var eleChecked = document.querySelector("input[name='tamano']:checked")
+        if(eleChecked.value =="unico")
+        {
+            document.querySelector("#peque").checked = true;
+        }
     }
 }
 
+
+// segun el producto le doy una forma a al seccion tamano y realizo la peticion para tener precio del producto en tiempo real
 function cargarPrecio()
 {
     if(document.querySelector("input[value='Sub sausage peppers with onions']") && document.querySelector("input[value='Sub sausage peppers with onions']:checked"))
@@ -97,6 +120,9 @@ function cargarPrecio()
 
 }
 
+
+// esta funcion es activada desde el html con un "onclick" sobre los producto, lo uqe hace es limpiar el body de la pagina y activar la peticion para llenar el body con los preductos seleccionados
+// ademas pongo logica de tamano segun producto
 function poblarMenu(producto)
 {
     peticion(producto,"menu");
@@ -119,6 +145,8 @@ function poblarMenu(producto)
     }
 }
 
+
+// funcion general para realizar peticiones al servidor con un post
 function peticion(elemento,ruta)
 {
     xhr.open("POST","/pinnochio/"+ruta,true);
@@ -129,6 +157,8 @@ function peticion(elemento,ruta)
         xhr.send("csrfmiddlewaretoken="+document.getElementsByName('csrfmiddlewaretoken')[0].value+"&producto="+elemento.innerHTML);
 }
 
+
+// funcion para establecer el comportamiento especial que tienen las pizzas, segun sus toppings
 function behavePizzas()
 {
     var tiposPizzas = document.querySelectorAll("input[name=ProdSeleccionado]");
@@ -161,6 +191,8 @@ function behavePizzas()
     return [tiposPizzas,sicSpec,regSpec,lsicSpec,lregSpec,regPizza,sicPizza];
 }
 
+
+// funcion main que usa la funcion behavepizzas para dar la logica a los radio button que pertenezcan a prodcutos tipo pizza
 function crearEventosRadios()
 {
         var divSubTipo = document.querySelector("#subtipo");
@@ -186,6 +218,8 @@ function crearEventosRadios()
         })  
 }
 
+
+// en esta funcion pongo todos los radios buttons de los sbutipos de productos que corresponde alo solicitado, si son pizzas o sub existen ciertos comportamientos especiales, aca se definen, aca se crean los div de numero de toppings
 function llenarSubtipo(respuesta)
 {
     var cont = 0;

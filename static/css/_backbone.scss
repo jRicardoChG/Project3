@@ -17,6 +17,23 @@
         color:black;
         text-decoration : none;
     }
+    .blockInput
+    {
+        display: block;
+    }
+    .BotonSuccess
+    {
+        padding: 5px 10px;
+        background-color: rgb(20,100,20);
+    }
+    .BotonSuccess:hover
+    {
+        background-color: rgb(20,60,20);
+    }
+    .ButtonSuccess:active
+    {
+        background-color: rgb(20,60,20);
+    }
     .hoverRed:hover{
         background-color: rgb(160, 20, 40);
     }

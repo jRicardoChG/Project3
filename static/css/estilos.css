@@ -11,6 +11,15 @@
   text-align: center;
   color: black;
   text-decoration: none; }
+#html .blockInput {
+  display: block; }
+#html .BotonSuccess {
+  padding: 5px 10px;
+  background-color: #146414; }
+#html .BotonSuccess:hover {
+  background-color: #143c14; }
+#html .ButtonSuccess:active {
+  background-color: #143c14; }
 #html .hoverRed:hover {
   background-color: #a01428; }
 #html .fontBold {

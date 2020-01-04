@@ -5,13 +5,16 @@ Home Orders
 {%endblock%}
 {%block cuerpo%}
 {%csrf_token%}
+{%if first%}
+<h2>tu primer login fue en {{first}} </h2>
+{%endif%}
 <div>
-    <h2>Menu</h2>
+    <h2 class="global">Menu</h2>
 </div>
 <div class="flexFatherP global">
     <div class="flexFatherP global" id="menu">
         <div class="productos global posRel hoverProd">
-            <img src="/static/images/pizzasFitSize.jpg" class="flexSon">
+            <img src="/static/images/pizzasFitSize.jpg" class="flexSon global">
             <div class="global posAbs">
                 <div class="global flexSon">
                     <h2 class="whiteFont global flexSon" onclick=poblarMenu(this)>Pizzas</h2>
@@ -19,7 +22,7 @@ Home Orders
             </div>
         </div>
         <div class="productos global posRel hoverProd">
-            <img src="/static/images/subsmallFitSize.jpg" class="flexSon">
+            <img src="/static/images/subsmallFitSize.jpg" class="flexSon global">
             <div class="global posAbs">
                 <div class="global flexSon">
                     <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Subs</h2>
@@ -27,7 +30,7 @@ Home Orders
             </div>
         </div>
         <div class="productos global posRel hoverProd">
-            <img src="/static/images/pastasFitSize.jpg" class="flexSon">
+            <img src="/static/images/pastasFitSize.jpg" class="flexSon global">
             <div class="global posAbs">
                 <div class="global flexSon">
                     <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Pastas</h2>
@@ -35,7 +38,7 @@ Home Orders
             </div>
         </div>
         <div class="productos global posRel hoverProd">
-            <img src="/static/images/dinnerplanesFitSize.jpg" class="flexSon">
+            <img src="/static/images/dinnerplanesFitSize.jpg" class="flexSon global">
             <div class="global posAbs">
                 <div class="global flexSon">
                     <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Dinner Platters</h2>
@@ -43,7 +46,7 @@ Home Orders
             </div>
         </div>
         <div class="productos global posRel hoverProd">
-            <img src="/static/images/saladsFitSize.jpg" class="flexSon">
+            <img src="/static/images/saladsFitSize.jpg" class="flexSon global">
             <div class="global posAbs">
                 <div class="global flexSon">
                     <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Salads</h2>
@@ -51,7 +54,7 @@ Home Orders
             </div>
         </div>
         <div class="productos global posRel hoverProd">
-            <img src="/static/images/sodatapsFitSize.jpg" class="flexSon">
+            <img src="/static/images/sodatapsFitSize.jpg" class="flexSon global">
             <div class="global posAbs">
                 <div class="global flexSon">
                     <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Sodas</h2>
@@ -59,7 +62,7 @@ Home Orders
             </div>
         </div>
         <div class="productos global posRel hoverProd">
-            <img src="/static/images/cookiesFitSize.jpg" class="flexSon">
+            <img src="/static/images/cookiesFitSize.jpg" class="flexSon global">
             <div class="global posAbs">
                 <div class="global flexSon">
                     <h2 class="whiteFont global flexSon " onclick=poblarMenu(this)>Addons</h2>
@@ -68,14 +71,14 @@ Home Orders
         </div>
     </div>
     <div class="flexFatherP global width100" id="pedirProd">
-        <hr class="hr ocultar">
-        <div id="subtipo" class="flexFatherColP minWidth60 ocultar">
-            <label class="fontBold">Seleccione producto</label>
-            <div id="formSubtipo" class="flexFatherLeftCol width100"></div>
+        <hr class="hr ocultar global">
+        <div id="subtipo" class="flexFatherColP minWidth60 ocultar global">
+            <label class="fontBold global">Seleccione producto</label>
+            <div id="formSubtipo" class="flexFatherLeftCol width100 global"></div>
         </div>
-        <hr class="hr ocultar">
-        <div id="tamano" class="flexFatherColP minWidth60 ocultar">
-            <label class="fontBold">Seleccione tamaño</label>
+        <hr class="hr ocultar global">
+        <div id="tamano" class="flexFatherColP minWidth60 ocultar global">
+            <label class="fontBold global">Seleccione tamaño</label>
             <div class="flexFatherLeftRow width100 global">
                 <input class="global flexItem" type="radio" name="tamano" value="small" id="peque" checked>
                 <label class="textLeft textLeftMargin" for="peque">Pequeño</label>
@@ -101,14 +104,19 @@ Home Orders
                 <label class="textLeft global textLeftMargin" for="tapDrink">Tap</label>
             </div>
         </div>
-        <hr class="hr ocultar">
-        <div id="toppings" class="flexFatherColP minWidth60 ocultar"></div>
-        
-        <div id="precio" class="flexFatherColP minWidth60 ocultar">
-            <p class="fontBold">Precio total:</p>
+        <hr class="hr ocultar global">
+        <div id="toppings" class="flexFatherColP minWidth60 ocultar global"></div>
+        <div id="precio" class="flexFatherColP minWidth60 ocultar global">
+            <p class="fontBold global">Precio total:</p>
             <p id="precioParcial">valor tanto puto</p>
         </div>
-        <hr class="hr ocultar">
+        <hr class="hr ocultar global">
+        {%if username%}
+        <div id="submit" class="flexFatherColP minWidth60 ocultar global">
+            <h2 id="carrito" class="flexSon global BotonSuccess whiteFont">Add to Car</h2>
+        </div>
+        <hr class="hr ocultar global">
+        {%endif%}
         
     </div>
 
