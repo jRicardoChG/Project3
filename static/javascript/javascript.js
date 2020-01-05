@@ -18,7 +18,29 @@ function enviarDatosCarrito()
     var subprodSel = document.querySelector("input[name=ProdSeleccionado]:checked").value;
     var tamSel = document.querySelector("input[name=tamano]:checked").value;
     var precSel = document.querySelector("#precioParcial").innerHTML.split(" ").filter(x => x!="$").join();
-    peticion(subprodSel+","+tamSel+","+precSel,"carrito");
+    var toppingsSel = []
+    if(document.querySelector("#num_Toppings"))
+    {
+        num_tops = document.querySelector("#num_Toppings").value;
+        if(num_tops=="0")
+        {
+            peticion(subprodSel+","+tamSel+","+precSel+","+0,"carrito");
+        }
+        else
+        {
+            selects = document.querySelectorAll("select");
+            for(valor of selects)
+            {
+                toppingsSel.push(valor.value);
+            }
+            peticion(subprodSel+","+tamSel+","+precSel+","+toppingsSel,"carrito");
+        }
+    }
+    else
+    {
+        peticion(subprodSel+","+tamSel+","+precSel+","+0,"carrito");
+    }
+    
 }
 
 

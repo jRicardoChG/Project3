@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class ordenes(models.Model):
     id_orden = models.AutoField(primary_key=True,auto_created=True,serialize=False,verbose_name="pk_orden")
-    fecha = models.DateField(auto_now=False,auto_now_add=True)
+    fecha = models.DateTimeField(auto_now=False,auto_now_add=True)
     direccion = models.CharField(max_length=150)
     status = models.CharField(max_length=50)
     id_dueno = models.ForeignKey(User,on_delete=models.CASCADE,related_name="id_dueno")
@@ -63,8 +63,20 @@ class prod_orden(models.Model):
     id_prod_creado = models.AutoField(primary_key=True,auto_created=True,serialize=True)    
     cantidad = models.IntegerField(null=False)
     id_ordenIn = models.ForeignKey(ordenes,on_delete=models.CASCADE,related_name="id_ordenIn")
-    id_ptsWho = models.ForeignKey(prod_tam_sub,on_delete=models.CASCADE,related_name="id_ptsWho") 
-    topping = models.ManyToManyField(toppings,blank=True,related_name="prod_topping")
-    
+    id_ptsWho = models.ForeignKey(prod_tam_sub,on_delete=models.CASCADE,related_name="id_ptsWho")
+    toppings = models.CharField(max_length=200,null=True,blank=True)
+
     def __str__(self):
-        return  " CANT_ORDENADA: "+ str(self.cantidad)
+        return  " CANT_ORDENADA: "+ str(self.cantidad) + " producto: " + str(self.id_ptsWho) + " datos dueno: " + str(self.id_ordenIn)
+
+
+class carritoCompras(models.Model):
+    id_prod_car = models.AutoField(primary_key=True,auto_created=True,serialize=True)
+    id_dueno = models.ForeignKey(User,on_delete=models.CASCADE,related_name="id_dueno_prod_carrito",null=False)
+    subtipo_prod_car = models.CharField(max_length=200,null=False)
+    tamano_prod_car = models.CharField(max_length=100,null=False)
+    precio_prod_car = models.IntegerField(null=False)
+    toppings_prod_car = models.CharField(max_length=200,null=True)
+    fecha_prod_car = models.DateTimeField(auto_now=False,auto_now_add=True)
+    def __str__(self):
+        return "dueno: " +str(self.id_dueno) + " ,prod: " +str(self.subtipo_prod_car) + str(self.tamano_prod_car) + str(self.precio) + " ,toppings: " + str(self.toppings_prod_car)

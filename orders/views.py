@@ -20,34 +20,25 @@ def index(request):
 
 
 def carritoView(request):
-    #Django deja modificar request.session pero no request.session["elemento interno"], por ello debo poner esta linea en la vista
-    request.session.modified = True
     if request.user.is_authenticated:
-        if(request.method == "POST"):
-            try:
-                if(request.session["carrito"]["contador"] is None):
-                    print("is None")
-                    request.session["carrito"]["contador"]=0
-                    cont = 0
-            except:
-                print("falle")
-                request.session["carrito"]={}
-                request.session["carrito"]["contador"]=0
-            cont = request.session.get("carrito")["contador"]
-            print(str(cont))
-            prodCarrito = request.POST.get("producto").split(",")
-            request.session["carrito"][cont]=prodCarrito
-            cont=cont+1
-            print(str(cont))
-            request.session["carrito"]["contador"]=cont
-            print(request.session["carrito"])
-            return JsonResponse({"respue":"Has anadido algo al carrito"})
+        #como el cliente hace un post registrando el producto en carrito de compra post retorna un json response para no generar errores en consola de cliente
+        if(request.method=="POST"):
+            producto = request.POST.get("producto").split(",")
+            print(producto)
+            userActual = User.objects.filter(id=request.user.id)[0]
+            productoCarrito = carritoCompras(id_dueno=userActual,subtipo_prod_car=producto[0],tamano_prod_car=producto[1],precio_prod_car=producto[2])
+            return JsonResponse({"carritoRespuestaPost":"OK"})
+        # si se realiza un get u otro metodo la vista retorna lo siguietne
         elif(request.method=="GET"):
             context = {"username":request.user}
-            return render(request,"orders/carrito.html",context)                
+            return render(request,"orders/carrito.html",context)
+        else:
+            context = {"username":request.user}
+            return render(request,"orders/carrito.html",context)
     else:
+        # si no esta autenticado no debe mostrar carrito de compra
         context = {"username":None}
-    return render(request,"orders/home.html",context)
+        return render(request,"orders/home.html",context)
 
 
 ## Vistas retornan peticiones ajax 
@@ -83,11 +74,9 @@ def productoPedido(request):
 def precioMostrar(request):
     if(request.POST.get("producto")):
         vectorJson = request.POST.get("producto").split(",")
-        print(request.POST.get("producto"))
         if(len(vectorJson)==3):
             subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1],id_subtipoPtsPizza__num_toppings=vectorJson[2]).values("precio")[0]["precio"]
         else:
             subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1]).values("precio")[0]["precio"]
-        print(subfiltro)
     return JsonResponse({"precio":subfiltro,"toppings":"false"})
 
