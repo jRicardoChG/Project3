@@ -1,24 +1,77 @@
-// variables globales
-var eventoCambio = new Event("change");
-var xhr = new XMLHttpRequest();
-var parser = new DOMParser();
-var menu = document.querySelector("#menu");
-var formElemento = document.querySelector("#formSubtipo");
-var pedirProd = document.querySelector("#pedirProd");
-var topps = document.querySelector("#toppings");
-var banderaCreado = false;
-var askNumTop1 = "</div><div class='flexFatherCol global'><label class='fontBold global'>Cuantos Toppings deseas?</label><input class='global form-control' type='number' name='num_Toppings' id='num_Toppings' min='0' max='3' placeholder='#'/></div><div id='selTopFather'>";
-var separador = document.createElement("hr");
-separador.classList.add("hr","global");
+/*
+ variables globales
+*/
+var global = {
+    eventoCambio : new Event("change"),
+    xhr : new XMLHttpRequest(),
+    menu : document.querySelector("#menu"),
+    formElemento : document.querySelector("#formSubtipo"),
+    pedirProd : document.querySelector("#pedirProd"),
+    topps : document.querySelector("#toppings"),
+    banderaCreado : false,
+    askNumTop1 : "<div class='flexFatherCol global'>"+"<label class='fontBold global'>Cuantos Toppings deseas?</label>"+"<input class='global form-control' type='number' name='num_Toppings' id='num_Toppings' min='0' max='3' placeholder='#'/>"+"</div>"+"<div id='selTopFather'></div>",
+    separador : document.createElement("hr"),    
+}
 
-// cuando el usuario elija un producto y este logueado envio los datos para crear elemento del carrito
-// se activa con un onclick html
+global.separador.classList.add("hr","global");
+
+/*
+ cuando llega una peticion ajax del servidor
+ pueblo los radio buttons de los productos si estan correctos
+ y si tengo precio el precio tambien
+*/
+global.xhr.onreadystatechange = function(){
+    if(global.xhr.readyState == 4)
+    {
+        respuesta = JSON.parse(global.xhr.responseText); 
+        if(respuesta["respuesta"])
+            llenarSubtipo(respuesta);
+        if(respuesta["precio"])
+            document.querySelector("#precioParcial").innerHTML = "$ "+respuesta["precio"];
+    }
+}
+
+/*
+ cuando la pagina cargue completamente añado la clase
+ global a todos los elementos
+*/
+
+window.onload = function (){
+    var todo = document.querySelectorAll("*");
+    for (tag of todo)
+    {
+        if(tag.classList["global"]==undefined)
+        {
+            tag.classList.add("global");
+        }
+    }
+};
+
+/*
+ cada vez que un nodo nuevo sea insertado le añado la clase global
+*/
+window.addEventListener("DOMInsertedNode", function(){
+    var todo = document.querySelectorAll("*");
+    for (tag of todo)
+    {
+        if(tag.classList["global"]==undefined)
+        {
+            tag.classList.add("global");
+        }
+    }
+});
+
+/*  
+    Cuando el usuario elija un producto y este logueado
+    envio los datos para crear elemento del carrito
+    se activa con un onclick html
+*/
 function enviarDatosCarrito()
 {
     var subprodSel = document.querySelector("input[name=ProdSeleccionado]:checked").value;
     var tamSel = document.querySelector("input[name=tamano]:checked").value;
-    var precSel = document.querySelector("#precioParcial").innerHTML.split(" ").filter(x => x!="$").join();
-    var toppingsSel = []
+    var precSel = document.querySelector("#precioParcial").innerHTML.split(" ").filter((x) => x!="$").join();
+    var toppingsSel = [];
     if(document.querySelector("#num_Toppings"))
     {
         num_tops = document.querySelector("#num_Toppings").value;
@@ -40,73 +93,35 @@ function enviarDatosCarrito()
     {
         peticion(subprodSel+","+tamSel+","+precSel+","+0,"carrito");
     }
-    
 }
-
-
-// cuando llega una peticion ajax del servidor pueblo los radio buttons de los productos si estan correctos y si tengo precio el precio tambien
-xhr.onreadystatechange = function(){
-    if(xhr.readyState == 4)
-    {
-        respuesta = JSON.parse(xhr.responseText); 
-        if(respuesta["respuesta"])
-            llenarSubtipo(respuesta);
-        if(respuesta["precio"])
-            document.querySelector("#precioParcial").innerHTML = "$ "+respuesta["precio"];
-    }
-}
-
-
-// cuando la pagina cargue completamente añado la clase global a todos los elementos
-window.onload = function (){
-    var todo = document.querySelectorAll("*");
-    for (tag of todo)
-    {
-        if(tag.classList["global"]==undefined)
-        {
-            tag.classList.add("global");
-        }
-    }
-};
-
-
-// cada vez que un nodo nuevo sea insertado le añado la clase global
-window.addEventListener("DOMInsertedNode", function(){
-    var todo = document.querySelectorAll("*");
-    for (tag of todo)
-    {
-        if(tag.classList["global"]==undefined)
-        {
-            tag.classList.add("global");
-        }
-    }
-});
-
-
-// en esta funcion configuro el comportamiento epecial de la seccion tamano, segun los productos
+/*
+ en esta funcion configuro el comportamiento de la seccion tamano
+ segun los productos
+*/
 function modDivTamano(flag)
 {
     if(flag=="unico")
     {
-        pedirProd.children["tamano"].children[1].classList.add("ocultar");
-        pedirProd.children["tamano"].children[2].classList.add("ocultar");
-        pedirProd.children["tamano"].children[3].classList.remove("ocultar");
+        global.pedirProd.children["tamano"].children[1].classList.add("ocultar");
+        global.pedirProd.children["tamano"].children[2].classList.add("ocultar");
+        global.pedirProd.children["tamano"].children[3].classList.remove("ocultar");
         document.querySelector("#unico").checked = true;
     }
     if(flag=="drinks")
     {
-        pedirProd.children["tamano"].children[1].classList.add("ocultar");
-        pedirProd.children["tamano"].children[2].classList.add("ocultar");
-        pedirProd.children["tamano"].children[4].classList.remove("ocultar");
-        pedirProd.children["tamano"].children[5].classList.remove("ocultar");
-        pedirProd.children["tamano"].children[6].classList.remove("ocultar");
+        global.pedirProd.children["tamano"].children[1].classList.add("ocultar");
+        global.pedirProd.children["tamano"].children[2].classList.add("ocultar");
+        global.pedirProd.children["tamano"].children[4].classList.remove("ocultar");
+        global.pedirProd.children["tamano"].children[5].classList.remove("ocultar");
+        global.pedirProd.children["tamano"].children[6].classList.remove("ocultar");
+        global.pedirProd.children["tamano"].children[6].classList.remove("ocultar");
         document.querySelector("#bottleDrink").checked = true;
     }
     if(flag=="peqGra")
     {
-        pedirProd.children["tamano"].children[1].classList.remove("ocultar");
-        pedirProd.children["tamano"].children[2].classList.remove("ocultar");
-        pedirProd.children["tamano"].children[3].classList.add("ocultar");
+        global.pedirProd.children["tamano"].children[1].classList.remove("ocultar");
+        global.pedirProd.children["tamano"].children[2].classList.remove("ocultar");
+        global.pedirProd.children["tamano"].children[3].classList.add("ocultar");
         var eleChecked = document.querySelector("input[name='tamano']:checked")
         if(eleChecked.value =="unico")
         {
@@ -115,8 +130,10 @@ function modDivTamano(flag)
     }
 }
 
-
-// segun el producto le doy una forma a al seccion tamano y realizo la peticion para tener precio del producto en tiempo real
+/*
+ segun el producto le doy una forma a al seccion tamano
+ y realizo la peticion para tener precio del producto en tiempo real
+*/
 function cargarPrecio()
 {
     if(document.querySelector("input[value='Sub sausage peppers with onions']") && document.querySelector("input[value='Sub sausage peppers with onions']:checked"))
@@ -128,7 +145,7 @@ function cargarPrecio()
         modDivTamano("peqGra");
     }
 
-    // Tomar datos definitivos para consultar precio
+    /* Tomar datos definitivos para consultar precio */
     var subprodSel = document.querySelector("input[name=ProdSeleccionado]:checked").value;
     var tamSel = document.querySelector("input[name=tamano]:checked").value;
     if(document.querySelector("#num_Toppings"))
@@ -143,45 +160,53 @@ function cargarPrecio()
 
 }
 
-
-// esta funcion es activada desde el html con un "onclick" sobre los producto, lo uqe hace es limpiar el body de la pagina y activar la peticion para llenar el body con los preductos seleccionados
-// ademas pongo logica de tamano segun producto
+/*
+    esta funcion es activada desde el html con un "onclick" sobre los producto,
+    lo uqe hace es limpiar el body de la pagina 
+    y activar la peticion para llenar el body con los preductos seleccionados
+    ademas pongo logica de tamano segun producto
+*/
 function poblarMenu(producto)
 {
     peticion(producto,"menu");
-    menu.classList.add("ocultar");
-    for(hijo of pedirProd.children)
+    global.menu.classList.add("ocultar");
+    var innerProd = producto.innerHTML;
+    for(hijo of global.pedirProd.children)
     {
         if(hijo.classList.contains("ocultar"))
         {
             hijo.classList.remove("ocultar");
         }
-        if(producto.innerHTML=="Pastas" || producto.innerHTML=="Salads" || producto.innerHTML=="Addons")
+        if(innerProd=="Pastas" || innerProd=="Salads" || innerProd=="Addons")
         {
             modDivTamano("unico");
         }
-        if(producto.innerHTML=="Sodas")
+        if(innerProd=="Sodas")
         {
             modDivTamano("drinks");
         }
-
     }
 }
 
 
-// funcion general para realizar peticiones al servidor con un post
+/* funcion general para realizar peticiones al servidor con un post */
+
 function peticion(elemento,ruta)
 {
-    xhr.open("POST","/pinnochio/"+ruta,true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    global.xhr.open("POST","/pinnochio/"+ruta,true);
+    global.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    var token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
     if(typeof elemento === "string")
-        xhr.send("csrfmiddlewaretoken="+document.getElementsByName('csrfmiddlewaretoken')[0].value+"&producto="+elemento);
+
+        global.xhr.send("csrfmiddlewaretoken="+token+"&producto="+elemento);
     else
-        xhr.send("csrfmiddlewaretoken="+document.getElementsByName('csrfmiddlewaretoken')[0].value+"&producto="+elemento.innerHTML);
+        global.xhr.send("csrfmiddlewaretoken="+token+"&producto="+elemento.innerHTML);
 }
 
-
-// funcion para establecer el comportamiento especial que tienen las pizzas, segun sus toppings
+/*
+ funcion para establecer el comportamiento especial
+ que tienen las pizzas, segun sus toppings
+*/
 function behavePizzas()
 {
     var tiposPizzas = document.querySelectorAll("input[name=ProdSeleccionado]");
@@ -210,12 +235,14 @@ function behavePizzas()
     lsicSpec = sicSpec.nextElementSibling;
     lregSpec = regSpec.nextElementSibling;
 
-
     return [tiposPizzas,sicSpec,regSpec,lsicSpec,lregSpec,regPizza,sicPizza];
 }
 
-
-// funcion main que usa la funcion behavepizzas para dar la logica a los radio button que pertenezcan a prodcutos tipo pizza
+/*
+ funcion main que usa la funcion behavepizzas
+ para dar la logica a los radio button
+ que pertenezcan a prodcutos tipo pizza
+*/
 function crearEventosRadios()
 {
         var divSubTipo = document.querySelector("#subtipo");
@@ -230,19 +257,58 @@ function crearEventosRadios()
             {
                 askNumTop.setAttribute("max",5);
                 askNumTop.value = 5;
-                askNumTop.dispatchEvent(eventoCambio);
+                askNumTop.dispatchEvent(global.eventoCambio);
             }
             else
             {
                 askNumTop.setAttribute("max",3);
                 askNumTop.value = 3;
-                askNumTop.dispatchEvent(eventoCambio);
+                askNumTop.dispatchEvent(global.eventoCambio);
             }
-        })  
+        });  
 }
 
+/*
+    En esta funcion evitamos que el usuario 
+    ingrese numeros no permitidos
+*/ 
 
-// en esta funcion pongo todos los radios buttons de los sbutipos de productos que corresponde alo solicitado, si son pizzas o sub existen ciertos comportamientos especiales, aca se definen, aca se crean los div de numero de toppings
+function noMayoraCinco(regSpec,sicSpec,regPizza,sicPizza)
+{
+    if(askNumTop.value==4)
+    {
+        askNumTop.value=3;
+        askNumTop.setAttribute("max",3);
+        if(sicSpec.checked)
+        {
+            sicPizza.checked=true;
+        }
+        else
+        {
+            regPizza.checked=true;
+        }
+    }
+    if(askNumTop.value>=5)
+    {
+        askNumTop.value=5;
+        askNumTop.setAttribute("max",5);
+        if(sicPizza.checked)
+        {
+            sicSpec.checked=true;
+        }
+        else
+        {
+            regSpec.checked=true;
+        }
+    }
+                
+}
+/*
+ en esta funcion pongo todos los radios buttons
+ de los sbutipos de productos que corresponde alo solicitado,
+ si son pizzas o sub existen ciertos comportamientos especiales,
+ aca se definen, aca se crean los div de numero de toppings
+*/
 function llenarSubtipo(respuesta)
 {
     var cont = 0;
@@ -267,19 +333,19 @@ function llenarSubtipo(respuesta)
         }
         divP.appendChild(rad);
         divP.appendChild(labl);
-        formElemento.appendChild(divP);
+        global.formElemento.appendChild(divP);
         cont++;
     }
     if(respuesta["toppings"]!="false")
     { 
-        document.querySelector("#pedirProd").insertBefore(separador,document.querySelector("#precio"));
-        topps.innerHTML = askNumTop1;
+        document.querySelector("#pedirProd").insertBefore(global.separador,document.querySelector("#precio"));
+        global.topps.innerHTML = global.askNumTop1;
         askNumTop = document.querySelector("#num_Toppings");
         if(askNumTop)
         {
             crearEventosRadios();
         }
-        if(!banderaCreado)
+        if(!global.banderaCreado)
         {
             var sicSpec = behavePizzas()[1];
             var regSpec = behavePizzas()[2];
@@ -287,23 +353,12 @@ function llenarSubtipo(respuesta)
             var sicPizza = behavePizzas()[6];
 
             askNumTop.addEventListener("change",function(){
-                if(askNumTop.value==4)
-                {
-                    askNumTop.value=3;
-                    askNumTop.setAttribute("max",3);
-                    if(sicSpec.checked)
-                    {
-                        sicPizza.checked=true;
-                    }
-                    else
-                    {
-                        regPizza.checked=true;
-                    }
-                }
+                noMayoraCinco(regSpec,sicSpec,regPizza,sicPizza);
                 document.querySelector("#selTopFather").innerHTML = "";
-                banderaCreado = true;
+                global.banderaCreado = true;
                 if(askNumTop.value=="")
                     askNumTop.value = 0;
+                
                 for(let i=0;i<askNumTop.value;i++)
                 {
                     var seltopps = document.createElement("div");
@@ -317,12 +372,12 @@ function llenarSubtipo(respuesta)
                     document.querySelector("#selTopFather").appendChild(seltopps);
                 }
             });
-            askNumTop.dispatchEvent(eventoCambio);
+
+            askNumTop.dispatchEvent(global.eventoCambio);
         }
     }
-    pedirProd.addEventListener("change",cargarPrecio);
-    pedirProd.dispatchEvent(eventoCambio);
-
+    global.pedirProd.addEventListener("change",cargarPrecio);
+    global.pedirProd.dispatchEvent(global.eventoCambio);
 }
 
 
