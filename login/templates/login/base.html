@@ -17,37 +17,41 @@
             <div class="col-12 col-md-7 flexFather global">
                 <img id="imgPinn" src="/static/images/pinocchios.png">
             </div>
-            <div class="global minheight row col-12 col-md-5 flexFather">
-                <div class="flexFather headerButton">
+            <div class="minheight headerFather row col-12 col-md-5 flexFather global">
                     {%if username%}
-                    <hr class="hv">
-                    <a class="hoverRed fontBold flexSon global" href="/pinnochio/carrito">Carrito Compras</a>
-                    <hr class="hv">
-                </div>
-                <div class="flexFather headerButton">
-                    <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu Comprar</a>
-                    <hr class="hv">
-                </div>
-                <div class="flexFatherCol headerButton">
-                    <div class="headerLink">
-                        <p class="fontBold flexSon global" >Hola {{username.username}}!</p>
+                    <div class="flexFather headerButtonx4 global">
+                        <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu</a>
+                        <hr class="hv">
                     </div>
-                    <div class="headerLink">
-                        <a class="hoverRed fontBold flexSon global" href="/login/logout">Log Out</a>
+                    <div class="flexFather headerButtonx4 global">
+                        <a class="hoverRed fontBold flexSon global" href="/pinnochio/carrito">Carrito Compras</a>
+                        <hr class="hv">
+                    </div>
+                    <div class="flexFather headerButtonx4 global">
+                        <a class="hoverRed fontBold flexSon global" href="/pinnochio/comprasHechas">Compras realizadas</a>
+                        <hr class="hv">
+                    </div>
+                    <div class="flexFatherCol headerButtonx4 global">
+                        <div class="flexFatherCol width100">
+                            <a class="fontBold flexSon global" >Hola {{username.username}}!</a>
+                        </div>
+                        <div class="flexFatherCol width100">
+                            <a class="hoverRed fontBold flexSon global" href="/login/logout">Log Out</a>
+                        </div>
                     </div>
                     {%else%}
-                    <hr class="hv">
-                    <a class="hoverRed fontBold flexSon global" href="/login">Login</a>
-                    <hr class="hv">
-                </div>
-                <div class="flexFather headerButton">
-                    <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu Ver</a>
-                    <hr class="hv">
-                </div>
-                <div class="flexFather headerButton">
-                    <a class="hoverRed fontBold flexSon global" href="/login/registro">Registrar</a>
-                    {%endif%}
-                </div>
+                    <div class="flexFather headerButton global">
+                        <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu</a>
+                        <hr class="hv">
+                    </div>
+                    <div class="flexFather headerButton global">
+                        <a class="hoverRed fontBold flexSon global" href="/login">Login</a>
+                        <hr class="hv">
+                    </div>
+                    <div class="flexFather headerButton global">
+                        <a class="hoverRed fontBold flexSon global" href="/login/registro">Registrar</a>
+                    </div>   
+                    {%endif%} 
             </div>
         </div>
     </section>

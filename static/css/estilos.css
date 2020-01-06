@@ -81,15 +81,23 @@
   flex-direction: column;
   justify-content: center;
   align-content: center; }
+#html .headerFather {
+  padding: 7px 0px; }
 #html .headerButton {
   width: 33.33%;
+  height: 100%; }
+#html .headerButtonv2 {
+  width: 100%;
+  height: 50%; }
+#html .headerButtonx4 {
+  width: 25%;
   height: 100%; }
 #html .headerLink {
   width: 100%;
   height: 50%; }
 #html .hv {
   align-self: center;
-  height: 80%;
+  height: 100%;
   border: solid;
   border-width: 1px;
   border-color: #781428; }
@@ -125,7 +133,8 @@
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  z-index: 9999; }
 #html .whiteFont {
   color: white;
   font-weight: bold;

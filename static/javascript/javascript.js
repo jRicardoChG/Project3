@@ -28,6 +28,11 @@ global.xhr.onreadystatechange = function(){
             llenarSubtipo(respuesta);
         if(respuesta["precio"])
             document.querySelector("#precioParcial").innerHTML = "$ "+respuesta["precio"];
+        if(respuesta["carritoRespuestaPost"]==="OK")
+        {
+            protocolo = window.location.protocol;
+            window.location.href = protocolo;
+        }
     }
 }
 
@@ -86,7 +91,7 @@ function enviarDatosCarrito()
             {
                 toppingsSel.push(valor.value);
             }
-            peticion(subprodSel+","+tamSel+","+precSel+","+toppingsSel,"carrito");
+            peticion(subprodSel+","+tamSel+","+precSel+","+num_tops+","+toppingsSel,"carrito");
         }
     }
     else
@@ -301,6 +306,11 @@ function noMayoraCinco(regSpec,sicSpec,regPizza,sicPizza)
             regSpec.checked=true;
         }
     }
+    if(sicSpec.checked || regSpec.checked)
+    {
+        if(askNumTop.value!=5)
+            askNumTop.value = 5;
+    }
                 
 }
 /*
@@ -372,7 +382,6 @@ function llenarSubtipo(respuesta)
                     document.querySelector("#selTopFather").appendChild(seltopps);
                 }
             });
-
             askNumTop.dispatchEvent(global.eventoCambio);
         }
     }

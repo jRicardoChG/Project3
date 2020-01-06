@@ -75,7 +75,7 @@ class carritoCompras(models.Model):
     id_dueno = models.ForeignKey(User,on_delete=models.CASCADE,related_name="id_dueno_prod_carrito",null=False)
     subtipo_prod_car = models.CharField(max_length=200,null=False)
     tamano_prod_car = models.CharField(max_length=100,null=False)
-    precio_prod_car = models.IntegerField(null=False)
+    precio_prod_car = models.DecimalField(max_digits=10,decimal_places=2,null=False)
     toppings_prod_car = models.CharField(max_length=200,null=True)
     fecha_prod_car = models.DateTimeField(auto_now=False,auto_now_add=True)
     def __str__(self):

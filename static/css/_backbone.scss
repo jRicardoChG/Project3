@@ -10,7 +10,7 @@
     }
     .global{
         border-radius: 5px;
-        // border: solid black;
+        //border: solid black;
         margin : 0px;
         padding : 0px;
         text-align: center;
@@ -120,8 +120,19 @@
         justify-content: center;
         align-content: center;
     }
+    .headerFather{
+        padding: 7px 0px;
+    }
     .headerButton{
         width: 33.33%;
+        height:100%;
+    }
+    .headerButtonv2{
+        width: 100%;
+        height:50%;
+    }
+    .headerButtonx4{
+        width: 25%;
         height:100%;
     }
     .headerLink{
@@ -130,7 +141,7 @@
     }
     .hv{
         align-self: center;
-        height: 80%;
+        height: 100%;
         border:solid;
         border-width: 1px;
         border-color: rgb(120, 20, 40);

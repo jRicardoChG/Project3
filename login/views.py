@@ -1,7 +1,7 @@
+#VISTAS DE LOGIN
+
 import sys
 import os
-
-
 
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse,Http404,HttpResponseRedirect, HttpRequest
