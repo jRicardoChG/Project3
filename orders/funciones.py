@@ -79,3 +79,23 @@ def precioProducto(request):
     else:
         subfiltro = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=vectorJson[0],id_tamanoPts__nom_tamano=vectorJson[1]).values("precio")[0]["precio"]
     return subfiltro    
+
+def traerProdsCarrito(request):
+    objetosCarrito = carritoCompras.objects.filter(id_dueno=request.user.id)
+    arrayObjsCarrito = []
+    elemento = {}
+    for valor in objetosCarrito:
+        elemento = {}
+        elemento["fecha"]=valor.fecha_prod_car.strftime("%Y-%m-%d %H:%M:%S")
+        print(elemento["fecha"])
+        elemento["subtipo"]=valor.subtipo_prod_car
+        elemento["tamano"]=valor.tamano_prod_car
+        elemento["precio"]=valor.precio_prod_car
+        if(valor.toppings_prod_car!="Null"):
+            elemento["toppings"]=[]
+            for i in valor.toppings_prod_car.split(","):
+                elemento["toppings"][len(elemento["toppings"]):]=[i]
+        else:
+            elemento["toppings"] = ["Null"]
+        arrayObjsCarrito[len(arrayObjsCarrito):]=[elemento]
+    return arrayObjsCarrito

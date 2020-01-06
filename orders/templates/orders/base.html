@@ -21,6 +21,7 @@
             <div class="minheight headerFather row col-12 col-md-5 flexFather global">
                 {%if username%}
                 <div class="flexFather headerButtonx4 global">
+                    <hr class="hv">
                     <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu</a>
                     <hr class="hv">
                 </div>
@@ -33,15 +34,16 @@
                     <hr class="hv">
                 </div>
                 <div class="flexFatherCol headerButtonx4 global">
-                    <div class="flexFatherCol width100">
+                    <div class="headerLink flexFatherCol width100">
                         <a class="fontBold flexSon global" >Hola {{username.username}}!</a>
                     </div>
-                    <div class="flexFatherCol width100">
+                    <div class="headerLink flexFatherCol width100">
                         <a class="hoverRed fontBold flexSon global" href="/login/logout">Log Out</a>
                     </div>
                 </div>
                 {%else%}
                 <div class="flexFather headerButton global">
+                    <hr class="hv">
                     <a class="hoverRed fontBold flexSon global" href="/pinnochio">Menu</a>
                     <hr class="hv">
                 </div>

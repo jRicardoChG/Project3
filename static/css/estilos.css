@@ -4,6 +4,12 @@
   background-color: #287828; }
 #html .minheight {
   min-height: 70px; }
+#html .flexSonLeft {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: left;
+  align-items: center; }
 #html .global {
   border-radius: 5px;
   margin: 0px;
@@ -16,6 +22,10 @@
 #html .BotonSuccess {
   padding: 5px 10px;
   background-color: #146414; }
+#html .fontSize {
+  font-size: 23px; }
+#html .botonPadding {
+  padding: 5px 10px; }
 #html .BotonSuccess:hover {
   background-color: #143c14; }
 #html .ButtonSuccess:active {
@@ -70,6 +80,8 @@
   text-align: left; }
 #html .textLeftMargin {
   margin-left: 3px; }
+#html .textLeftPadding {
+  padding-left: 3px; }
 #html .width100 {
   width: 100%; }
 #html .minWidth60 {
@@ -97,7 +109,7 @@
   height: 50%; }
 #html .hv {
   align-self: center;
-  height: 100%;
+  height: 80%;
   border: solid;
   border-width: 1px;
   border-color: #781428; }
@@ -109,6 +121,28 @@
   border: solid;
   border-width: 1px;
   border-color: #b4b4b4; }
+#html .hr100 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  justify-self: center;
+  width: 100%;
+  border: solid;
+  border-width: 1px;
+  border-color: #b4b4b4; }
+#html .flexSonRight {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  line-height: 100%;
+  font-style: italic; }
+#html .textRightPadding {
+  padding-right: 3px; }
+#html .textListPadding {
+  padding-left: 15px; }
+#html .textGray {
+  color: #a0a0a0; }
 #html .pinoBackGround {
   background-image: url("../images/pinoFitSize.JPG");
   background-repeat: repeat; }

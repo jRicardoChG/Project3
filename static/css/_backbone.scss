@@ -8,6 +8,13 @@
     .minheight{
         min-height:70px;
     }
+    .flexSonLeft{
+        display:flex;
+        width: 100%;
+        height: 100%;
+        justify-content: left;
+        align-items: center;
+    }
     .global{
         border-radius: 5px;
         //border: solid black;
@@ -25,6 +32,12 @@
     {
         padding: 5px 10px;
         background-color: rgb(20,100,20);
+    }
+    .fontSize{
+        font-size: 23px;
+    }
+    .botonPadding{
+        padding: 5px 10px;
     }
     .BotonSuccess:hover
     {
@@ -103,6 +116,9 @@
     {
         margin-left: 3px;
     }
+    .textLeftPadding{
+        padding-left: 3px;
+    }
     .width100
     {
         width:100%;
@@ -141,7 +157,7 @@
     }
     .hv{
         align-self: center;
-        height: 100%;
+        height: 80%;
         border:solid;
         border-width: 1px;
         border-color: rgb(120, 20, 40);
@@ -155,6 +171,33 @@
         border:solid;
         border-width: 1px;
         border-color: rgb(180, 180, 180);
+    }
+    .hr100{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        justify-self: center;
+        width: 100%;
+        border:solid;
+        border-width: 1px;
+        border-color: rgb(180, 180, 180);
+    }
+    .flexSonRight{
+        display:flex;
+        width: 100%;
+        height: 100%;
+        justify-content: flex-end;
+        align-items: center;
+        line-height: 100%;
+        font-style: italic;
+    }
+    .textRightPadding{
+        padding-right: 3px;
+    }
+    .textListPadding{
+        padding-left: 15px;
+    }
+    .textGray{
+        color:rgb(160,160,160);
     }
     .pinoBackGround
     {

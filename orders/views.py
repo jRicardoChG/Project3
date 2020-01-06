@@ -26,8 +26,9 @@ def carritoView(request):
             CrearProductoCarrito(request)
             return JsonResponse({"carritoRespuestaPost":"OK"})
         # si se realiza un get u otro metodo la vista retorna lo siguiente
-        elif(request.method=="GET"):
-            context = {"username":request.user}
+        elif(request.method=="GET"): 
+            arrayObjsCarrito = traerProdsCarrito(request)
+            context = {"username":request.user,"prodCarrito":arrayObjsCarrito}
             return render(request,"orders/carrito.html",context)
     else:
         # si no esta autenticado no debe mostrar carrito de compra
@@ -50,3 +51,11 @@ def precioMostrar(request):
         return JsonResponse({"precio":subfiltro,"toppings":"false"})
     return JsonResponse({"error":"error"})
 
+def eliminarView(request):
+    if request.method=="POST":
+        userActual = request.user.id
+        fechaProdEliminar = request.POST.get("producto")
+        prodEliminar = carritoCompras.objects.filter(id_dueno=userActual,fecha_prod_car__icontains=fechaProdEliminar)
+        if(prodEliminar):
+            prodEliminar.delete()
+    return JsonResponse({"eliminado":"true"})

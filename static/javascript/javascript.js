@@ -30,7 +30,12 @@ global.xhr.onreadystatechange = function(){
             document.querySelector("#precioParcial").innerHTML = "$ "+respuesta["precio"];
         if(respuesta["carritoRespuestaPost"]==="OK")
         {
-            protocolo = window.location.protocol;
+            var protocolo = window.location.protocol;
+            window.location.href = protocolo;
+        }
+        if(respuesta["eliminado"]=="true")
+        {
+            var protocolo = window.location.protocol;
             window.location.href = protocolo;
         }
     }

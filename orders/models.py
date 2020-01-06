@@ -78,5 +78,6 @@ class carritoCompras(models.Model):
     precio_prod_car = models.DecimalField(max_digits=10,decimal_places=2,null=False)
     toppings_prod_car = models.CharField(max_length=200,null=True)
     fecha_prod_car = models.DateTimeField(auto_now=False,auto_now_add=True)
+    
     def __str__(self):
-        return "dueno: " +str(self.id_dueno) + " ,prod: " +str(self.subtipo_prod_car) + str(self.tamano_prod_car) + str(self.precio) + " ,toppings: " + str(self.toppings_prod_car)
+        return "dueno: " +str(self.id_dueno) + " ,prod: " +str(self.subtipo_prod_car) + str(self.tamano_prod_car) + str(self.precio_prod_car) + " ,toppings: " + str(self.toppings_prod_car)

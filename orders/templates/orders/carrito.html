@@ -1,10 +1,48 @@
 {%extends "orders/base.html"%}
-
 {%block titulo%}
 Carrito Compra
 {%endblock%}
 {%block cuerpo%}
+<script src="/static/javascript/funciones.js" defer></script>
 {%csrf_token%}
-
+{%if prodCarrito%}
+{%for valor in prodCarrito%}
+<hr class="hr100 global">
+<div id="elementoCarrito" class="flexFatherCol global">
+    <div id="prodCarParams" class="flexSon global">
+        <p id="fechaCar" class="flexSonRight textRightPadding global textGray" >{{valor.fecha}}</p>
+        <p id="subtipoCar" class="flexSonLeft textLeftPadding global fontBold" >{{valor.subtipo}}</p>
+        <p id="tamanoCar" class="flexSonLeft textLeftPadding global" >Tamaño: {{valor.tamano}}</p>
+        {%if valor.toppings.0 != 'Null' %}
+        <ul>
+            <p class="flexSonLeft textLeftPadding global fontBold">Toppings Seleccionados:</p>
+            {%for elemento in valor.toppings %}
+            <li class="flexSonLeft textListPadding global">{{elemento}}</li>
+            {%endfor%}
+        </ul>
+        {%endif%}
+        <p id="precioProdCar" class="flexSonLeft textLeftPadding global" >Precio Unidad: {{valor.precio}}</p>
+    </div>
+    <div class="row width100 flexFather global">
+        <div class=" col-4 flexFather global">
+            <div class="fontSize flexSon btn btn-danger global fontBold" onclick=carLessCantidad(this)>-</div>
+            <input id="cantidadSel" class="flexSon global" type="number" readonly="readonly" value="1">
+            <div class=" fontSize flexSon btn btn-success global fontBold" onclick=carMoreCantidad(this)>+</div>
+        </div>
+        <div class=" col-2 global"></div>
+        <div class=" col-6 flexFather global"><a class="flexSon btn btn-danger global fontBold botonPadding" onclick=eliminarElemento(this)>Eliminar</a></div>
+    </div>
+</div>
+{%endfor%}
+<hr class="hr100 global">
+<div id="submitCarrito" class="flexFatherColP minWidth60 global">
+        <div class="flexFatherColP width100 global">
+            <p class="global fontBold fontSize flexSon" >Precio Total: </p>
+            <p class="global fontBold fontSize flexSon" id="precioTotal" ></p>
+        </div>
+        <h2 id="Comprar" onclick=realizarCompra() class="flexSon global BotonSuccess whiteFont">Comprar</h2>
+    </div>
+<hr class="hr100 global">
+{%endif%}
 {%endblock%}
 
