@@ -14,8 +14,8 @@ Carrito Compra
         <p id="subtipoCar" class="flexSonLeft textLeftPadding global fontBold" >{{valor.subtipo}}</p>
         <p id="tamanoCar" class="flexSonLeft textLeftPadding global" >Tamaño: {{valor.tamano}}</p>
         {%if valor.toppings.0 != 'Null' %}
-        <ul>
-            <p class="flexSonLeft textLeftPadding global fontBold">Toppings Seleccionados:</p>
+        <p class="flexSonLeft textLeftPadding global fontBold">Toppings Seleccionados:</p>
+        <ul id="listToppsCar">
             {%for elemento in valor.toppings %}
             <li class="flexSonLeft textListPadding global">{{elemento}}</li>
             {%endfor%}
@@ -23,14 +23,14 @@ Carrito Compra
         {%endif%}
         <p id="precioProdCar" class="flexSonLeft textLeftPadding global" >Precio Unidad: {{valor.precio}}</p>
     </div>
-    <div class="row width100 flexFather global">
-        <div class=" col-4 flexFather global">
-            <div class="fontSize flexSon btn btn-danger global fontBold" onclick=carLessCantidad(this)>-</div>
+    <div id="cantidadCar" class="row width100 flexFather global">
+        <div id="divCantCar" class=" col-4 flexFather global">
+            <div class="click fontSize flexSon btn btn-danger global fontBold" onclick=carLessCantidad(this)>-</div>
             <input id="cantidadSel" class="flexSon global" type="number" readonly="readonly" value="1">
-            <div class=" fontSize flexSon btn btn-success global fontBold" onclick=carMoreCantidad(this)>+</div>
+            <div class="click fontSize flexSon btn btn-success global fontBold" onclick=carMoreCantidad(this)>+</div>
         </div>
         <div class=" col-2 global"></div>
-        <div class=" col-6 flexFather global"><a class="flexSon btn btn-danger global fontBold botonPadding" onclick=eliminarElemento(this)>Eliminar</a></div>
+        <div class=" col-6 flexFather global"><a class="click flexSon btn btn-danger global fontBold botonPadding" onclick=eliminarElemento(this)>Eliminar</a></div>
     </div>
 </div>
 {%endfor%}
@@ -40,9 +40,13 @@ Carrito Compra
             <p class="global fontBold fontSize flexSon" >Precio Total: </p>
             <p class="global fontBold fontSize flexSon" id="precioTotal" ></p>
         </div>
-        <h2 id="Comprar" onclick=realizarCompra() class="flexSon global BotonSuccess whiteFont">Comprar</h2>
+        <h2 id="Comprar" onclick=realizarCompra() class="click flexSon global BotonSuccess whiteFont">Comprar</h2>
     </div>
 <hr class="hr100 global">
+{%else%}
+<div class="global flexFather">
+    <h2 class="flexSon global">No hay producto en el carrito de compra</h2>
+</div>
 {%endif%}
 {%endblock%}
 

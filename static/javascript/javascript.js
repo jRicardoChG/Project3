@@ -87,7 +87,7 @@ function enviarDatosCarrito()
         num_tops = document.querySelector("#num_Toppings").value;
         if(num_tops=="0")
         {
-            peticion(subprodSel+","+tamSel+","+precSel+","+0,"carrito");
+            peticion(subprodSel+","+tamSel+","+precSel+","+0,"carrito","string");
         }
         else
         {
@@ -96,12 +96,12 @@ function enviarDatosCarrito()
             {
                 toppingsSel.push(valor.value);
             }
-            peticion(subprodSel+","+tamSel+","+precSel+","+num_tops+","+toppingsSel,"carrito");
+            peticion(subprodSel+","+tamSel+","+precSel+","+num_tops+","+toppingsSel,"carrito","string");
         }
     }
     else
     {
-        peticion(subprodSel+","+tamSel+","+precSel+","+0,"carrito");
+        peticion(subprodSel+","+tamSel+","+precSel+","+0,"carrito","string");
     }
 }
 /*
@@ -161,11 +161,11 @@ function cargarPrecio()
     if(document.querySelector("#num_Toppings"))
     {
         var numTopSel = document.querySelector("#num_Toppings").value;
-        peticion(encodeURI(subprodSel)+","+encodeURI(tamSel)+","+encodeURI(numTopSel),"precio");
+        peticion(encodeURI(subprodSel)+","+encodeURI(tamSel)+","+encodeURI(numTopSel),"precio","string");
     }
     else
     {
-        peticion(encodeURI(subprodSel)+","+encodeURI(tamSel),"precio");
+        peticion(encodeURI(subprodSel)+","+encodeURI(tamSel),"precio","string");
     }
 
 }
@@ -178,7 +178,7 @@ function cargarPrecio()
 */
 function poblarMenu(producto)
 {
-    peticion(producto,"menu");
+    peticion(producto,"menu","objetoDom");
     global.menu.classList.add("ocultar");
     var innerProd = producto.innerHTML;
     for(hijo of global.pedirProd.children)
@@ -201,15 +201,16 @@ function poblarMenu(producto)
 
 /* funcion general para realizar peticiones al servidor con un post */
 
-function peticion(elemento,ruta)
+function peticion(elemento,ruta,tipoDato)
 {
-    global.xhr.open("POST","/pinnochio/"+ruta,true);
-    global.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     var token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-    if(typeof elemento === "string")
-
-        global.xhr.send("csrfmiddlewaretoken="+token+"&producto="+elemento);
-    else
+        global.xhr.open("POST","/pinnochio/"+ruta,true);
+        global.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        if(tipoDato === "string")
+            global.xhr.send("csrfmiddlewaretoken="+token+"&producto="+elemento);
+        else if(tipoDato == "json")
+            global.xhr.send("csrfmiddlewaretoken="+token+"&producto="+JSON.stringify(elemento));
+        else if(tipoDato == "objetoDom")
         global.xhr.send("csrfmiddlewaretoken="+token+"&producto="+elemento.innerHTML);
 }
 

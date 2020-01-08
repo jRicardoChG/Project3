@@ -40,6 +40,7 @@ def carritoView(request):
 
 def productoPedido(request):
     if request.method == "POST":
+        print(request.POST)
         respuesta = productosYToppings(request)[0]
         addsPizzas = productosYToppings(request)[1]
         return JsonResponse({"respuesta":respuesta,"toppings":addsPizzas})
@@ -59,3 +60,23 @@ def eliminarView(request):
         if(prodEliminar):
             prodEliminar.delete()
     return JsonResponse({"eliminado":"true"})
+
+def comprashechasView(request):
+    if request.user.is_authenticated:
+        context = {"username":request.user}
+        return render(request,"orders/comprashechas.html",context)
+    else:
+        context = {"username":None}
+        return render(request,"orders/comprashechas.html",context)
+
+def comprarView(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            datos = request.POST
+            print(datos)
+            return JsonResponse({"datos":"OK"})
+        else:
+            return render(request,"orders/home.html")
+    else:
+        return render(request,"orders/home.html")
+        
