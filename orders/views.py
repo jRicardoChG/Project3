@@ -72,7 +72,7 @@ def comprashechasView(request):
 def comprarView(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            datos = request.POST
+            datos = json.loads(request.POST.get("producto"))
             print(datos)
             return JsonResponse({"datos":"OK"})
         else:

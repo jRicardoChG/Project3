@@ -62,10 +62,21 @@ function realizarCompra()
         }
         producto["precio"] = elemento.children["prodCarParams"].children["precioProdCar"].innerHTML
         producto["cantidad"] = elemento.children["cantidadCar"].children["divCantCar"].children["cantidadSel"].value
-        compra[cont]=producto;   
+        compra[cont]=producto;
+        compra["direccion"] = document.querySelector("#direccionEntrega").value;   
         cont++;
     }
+    if(compra["direccion"]=="" || compra["direccion"]==null || compra["direccion"]==undefined)
+    {
+        direccion = document.querySelector("#direccionEntrega");
+        direccion.style.borderColor = "rgb(255,0,0)"
+        direccion.style.borderWidth = "2px";
+        direccion.setAttribute("placeholder", "Dirección requerida");
+    }    
+    else
+    {
         peticion(compra,"comprar","json");
+    }
     return 0;
 }
 
