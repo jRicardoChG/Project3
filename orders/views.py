@@ -69,11 +69,26 @@ def comprashechasView(request):
         context = {"username":None}
         return render(request,"orders/comprashechas.html",context)
 
+## proceso, debo crar una orden de compra al precionar el boton, 
+## con sa orden creo producto asociados a la misma
+## se debe leer la data que llega de fronent
+## borrar carrito de compra, datos en db asociados al usuario
+## configurar boton en fron para que cambie de pagina
+
+
 def comprarView(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            datos = json.loads(request.POST.get("producto"))
-            print(datos)
+            # crear orden de compra nueva 
+            usuarioActual = User.objects.filter(id = request.user.id)[0]
+            NuevaOrden = crearOrdenNueva(request,usuarioActual)
+            productos = json.loads(request.POST.get("producto"))
+            # crear prodstos orden
+            print(productos)
+            # crearProdsOrden(request,usuarioActual,productos)
+
+                
+
             return JsonResponse({"datos":"OK"})
         else:
             return render(request,"orders/home.html")

@@ -99,3 +99,21 @@ def traerProdsCarrito(request):
             elemento["toppings"] = ["Null"]
         arrayObjsCarrito[len(arrayObjsCarrito):]=[elemento]
     return arrayObjsCarrito
+
+
+
+def crearOrdenNueva(request,user):
+    datos = json.loads(request.POST.get("producto"))
+    NuevaOrden = ordenes(direccion=datos["direccion"],status="Pedido confirmado",id_dueno=user)
+    NuevaOrden.save()
+    return NuevaOrden
+
+
+# hago la queri para conocer el id de pts
+# con los datos empiezo a crear los productos
+
+def crearProdsOrden(request,user,productos):
+    dictProductosPTS = {}
+    for i in range(0,len(productos)-1):
+        prodPTS = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=productos[str(i)]["subtipo"])
+    return 
