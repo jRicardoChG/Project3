@@ -5,4 +5,62 @@ Compras Hechas
 {%block cuerpo%}
 <script src="/static/javascript/funciones.js" defer></script>
 {%csrf_token%}
+{%if comprashechas%}
+<hr class="hr100 global">
+{%for compra,valor in comprashechas.items%}
+<div class="global flexFatherCol">
+    <div class="global flexSon">
+        <p class="global flexSonRight textGray" >fecha: {{valor.fecha}}</p>
+        <p class="fontBold global flexSonLeft">Datos de Orden realizada</p>
+        <div class="global flexFather">
+            <p class="global flexSonLeft">Dirección:</p>
+            <p class="global textListPadding flexSonLeft" >{{valor.direccion}}</p>
+        </div>
+        <div class="global flexFather">
+            <p class="global flexSonLeft">Status:</p>
+            <p class="global textListPadding flexSonLeft" >{{valor.status}}</p>
+        </div>
+        <div class="global flexFather">
+                <p class="global flexSonLeft">Precio Final Orden:</p>
+                <p class="global textListPadding flexSonLeft" >${{valor.precioFinal}}</p>
+        </div>
+        <div class="global flexSon">
+            <p class="global flexSonLeft fontBold">Productos de la compra</p>
+            {%for producto,prop in valor.productos.items%}
+            <hr class="global">
+            <div class="flexFather global ">
+                <p class="global flexSonLeft textListPadding fontBold">Nombre Producto:</p>
+                <p class="global flexSonLeft textListPadding">{{prop.subtipo}}</p>
+            </div>
+            <div class="flexFather global ">
+                <p class="global flexSonLeft textListPadding ">Cantidad:</p>
+                <p class="global flexSonLeft textListPadding">x{{prop.cantidad}}</p>
+            </div>
+            <div class="flexFather global ">
+                    <p class="global flexSonLeft textListPadding">Tamaño:</p>
+                    <p class="global flexSonLeft textListPadding">{{prop.tamano}}</p>
+            </div>
+            <div class="flexFather global ">
+                    <p class="global flexSonLeft textListPadding ">Toppings:</p>
+                    <p class="global flexSonLeft textListPadding">{{prop.toppings}}</p>
+            </div>
+            <div class="flexFather global ">
+                    <p class="global flexSonLeft textListPadding ">Precio Unidad:</p>
+                    <p class="global flexSonLeft textListPadding">${{prop.precioUnidad}}</p>
+            </div>
+            <div class="flexFather global ">
+                    <p class="global flexSonLeft textListPadding ">Precio Total:</p>
+                    <p class="global flexSonLeft textListPadding">${{prop.precioTotal}}</p>
+            </div>
+            {%endfor%}
+            <hr class="global">
+        </div>
+        <div id=datosCompra class="global">
+        </div>
+    </div>
+</div>
+<hr class="hr100 global">
+{%endfor%}
+{%endif%}
+
 {%endblock%}

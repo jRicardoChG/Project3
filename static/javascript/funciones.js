@@ -48,10 +48,10 @@ function realizarCompra()
     cont = 0
     for(elemento of prods)
     {
-        let producto = {}
-        producto["fecha"] = elemento.children["prodCarParams"].children["fechaCar"].innerHTML
-        producto["subtipo"] = elemento.children["prodCarParams"].children["subtipoCar"].innerHTML
-        producto["tamano"] = elemento.children["prodCarParams"].children["tamanoCar"].innerHTML
+        let producto = {};
+        producto["fecha"] = elemento.children["prodCarParams"].children["fechaCar"].innerHTML;
+        producto["subtipo"] = elemento.children["prodCarParams"].children["subtipoCar"].innerHTML;
+        producto["tamano"] = elemento.children["prodCarParams"].children["tamanoCar"].innerHTML.split(": ")[1];
         if(elemento.children["prodCarParams"].children["listToppsCar"])
         {
             let topsSel = []
@@ -60,7 +60,7 @@ function realizarCompra()
                 topsSel.push(lista.innerHTML);
             producto["toppings"] = topsSel;
         }
-        producto["precio"] = elemento.children["prodCarParams"].children["precioProdCar"].innerHTML
+        producto["precio"] = elemento.children["prodCarParams"].children["precioProdCar"].innerHTML.split(": ")[1];
         producto["cantidad"] = elemento.children["cantidadCar"].children["divCantCar"].children["cantidadSel"].value
         compra[cont]=producto;
         compra["direccion"] = document.querySelector("#direccionEntrega").value;   

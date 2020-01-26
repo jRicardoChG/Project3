@@ -9,8 +9,8 @@ class ordenes(models.Model):
     status = models.CharField(max_length=50)
     id_dueno = models.ForeignKey(User,on_delete=models.CASCADE,related_name="id_dueno")
 
-    def __str__(self):
-        return str(self.fecha) +" "+ str(self.status) + " " + str(self.id_dueno)
+    # def __str__(self):
+    #     return str(self.fecha) +" "+ str(self.status) + " " + str(self.id_dueno)
 
 class toppings(models.Model):
     id_topping = models.AutoField(primary_key=True,auto_created=True,serialize=True)

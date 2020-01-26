@@ -28,14 +28,14 @@ global.xhr.onreadystatechange = function(){
             llenarSubtipo(respuesta);
         if(respuesta["precio"])
             document.querySelector("#precioParcial").innerHTML = "$ "+respuesta["precio"];
-        if(respuesta["carritoRespuestaPost"]==="OK")
+        if(respuesta["carritoRespuestaPost"]==="OK" || respuesta["eliminado"]=="true")
         {
             var protocolo = window.location.protocol;
             window.location.href = protocolo;
         }
-        if(respuesta["eliminado"]=="true")
+        if(respuesta["ordenCreada"]=="OK")
         {
-            var protocolo = window.location.protocol;
+            var protocolo = window.location.origin + "/pinnochio"
             window.location.href = protocolo;
         }
     }

@@ -109,11 +109,56 @@ def crearOrdenNueva(request,user):
     return NuevaOrden
 
 
-# hago la queri para conocer el id de pts
+# hago la query para conocer el id de pts
 # con los datos empiezo a crear los productos
+# los productos de una orden piden:
+# Cantidad
+# id_ordenIn de la orden a al que pertenencen
+# id_ptsWho de la tabla prod_tam_sub
+# toppings en un string si los hay
 
-def crearProdsOrden(request,user,productos):
-    dictProductosPTS = {}
+
+# identifico el id del producto pts, segun su tamano, precio, y subtipo asociados
+# 
+def crearProdsOrden(request,productos,orden,usuario):
     for i in range(0,len(productos)-1):
-        prodPTS = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=productos[str(i)]["subtipo"])
-    return 
+        prodPts = prod_tam_sub.objects.filter(id_subtipoPts__nom_subtipo=productos[str(i)]["subtipo"],id_tamanoPts__nom_tamano=productos[str(i)]["tamano"],precio=productos[str(i)]["precio"])[0]
+        cantidad = productos[str(i)]["cantidad"]
+        if("toppings" in productos[str(i)]):
+            topping = productos[str(i)]["toppings"]
+        else:
+            topping = None
+        if (topping!=None):
+            prodOrden = prod_orden(cantidad = cantidad,id_ordenIn=orden,id_ptsWho=prodPts,toppings=str(topping))
+        else:
+            prodOrden = prod_orden(cantidad = cantidad,id_ordenIn=orden,id_ptsWho=prodPts,toppings=None)
+        prodOrden.save()    
+    return
+
+def borrarCarritoCompra(usuario):
+    queryCarrito = carritoCompras.objects.filter(id_dueno=usuario)
+    queryCarrito.delete()
+    return
+
+def consultarOrdenes(usuario):
+    ordenesTotales = ordenes.objects.filter(id_dueno=usuario)
+    ordenesUsuario = {}
+    for cont in range(0,len(ordenesTotales)):
+        ordenesUsuario[str(cont)]= {}
+        ordenesUsuario[str(cont)]["fecha"] = ordenesTotales[cont].fecha
+        ordenesUsuario[str(cont)]["direccion"] = ordenesTotales[cont].direccion
+        ordenesUsuario[str(cont)]["status"] = ordenesTotales[cont].status
+        ordenesUsuario[str(cont)]["precioFinal"] = 0
+        ordenesProductos = prod_orden.objects.filter(id_ordenIn=ordenesTotales[cont])
+        ordenesUsuario[str(cont)]["productos"] = {}
+        for i in range(0,len(ordenesProductos)):
+            productoOrden = {}
+            productoOrden["cantidad"]=ordenesProductos[i].cantidad
+            productoOrden["subtipo"]=ordenesProductos[i].id_ptsWho.id_subtipoPts.nom_subtipo
+            productoOrden["tamano"]=ordenesProductos[i].id_ptsWho.id_tamanoPts.nom_tamano
+            productoOrden["toppings"]=ordenesProductos[i].toppings
+            productoOrden["precioUnidad"]=float(ordenesProductos[i].id_ptsWho.precio)
+            productoOrden["precioTotal"]=float(productoOrden["precioUnidad"])*float(productoOrden["cantidad"])
+            ordenesUsuario[str(cont)]["precioFinal"] += float(productoOrden["precioTotal"])
+            ordenesUsuario[str(cont)]["productos"][str(i)] = productoOrden
+    return ordenesUsuario

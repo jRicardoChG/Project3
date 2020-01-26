@@ -28,6 +28,7 @@ def carritoView(request):
         # si se realiza un get u otro metodo la vista retorna lo siguiente
         elif(request.method=="GET"): 
             arrayObjsCarrito = traerProdsCarrito(request)
+            print(arrayObjsCarrito)
             context = {"username":request.user,"prodCarrito":arrayObjsCarrito}
             return render(request,"orders/carrito.html",context)
     else:
@@ -63,7 +64,10 @@ def eliminarView(request):
 
 def comprashechasView(request):
     if request.user.is_authenticated:
-        context = {"username":request.user}
+        usuarioActual = User.objects.filter(id=request.user.id)[0]
+        comprashechas = consultarOrdenes(usuarioActual)
+        print(comprashechas)
+        context = {"username":request.user, "comprashechas":comprashechas}
         return render(request,"orders/comprashechas.html",context)
     else:
         context = {"username":None}
@@ -84,12 +88,10 @@ def comprarView(request):
             NuevaOrden = crearOrdenNueva(request,usuarioActual)
             productos = json.loads(request.POST.get("producto"))
             # crear prodstos orden
-            print(productos)
-            # crearProdsOrden(request,usuarioActual,productos)
-
-                
-
-            return JsonResponse({"datos":"OK"})
+            crearProdsOrden(request,productos,NuevaOrden,usuarioActual)
+            #print(productos)
+            borrarCarritoCompra(usuarioActual)
+            return JsonResponse({"ordenCreada":"OK"})
         else:
             return render(request,"orders/home.html")
     else:
