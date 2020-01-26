@@ -1,9 +1,11 @@
 # Project3
 Project3 Django pinnochio Pizza n subs
 <h1>Breafly explanation of how it works</h1>
-<p>The atutentication system was made using the django autentication system</p>
- <p>All the menu of Pinnochio's Pizza n subs is right now in the database </p>
- <p>in the model of the data base, you can see this princpal tables</p>
+<ol>
+    <li>The authentication system was made using the django authentication system</li>
+    <li>All the menu of Pinnochio's Pizza n subs is right now in the database</li>
+    <li>In the model of the data base, you can see this princpal tables:</li>
+</ol>
  <ul>
      <li>Productos: where the main categories of products are</li>
      <li>Subtipo: The especial kind of prodcutos are here, like sub with extra chesee, or regular pizza or sicilian </li>
@@ -12,4 +14,4 @@ Project3 Django pinnochio Pizza n subs
      <li>Toppings: the pizza toppings </li>
  </ul>
 
- 
+
